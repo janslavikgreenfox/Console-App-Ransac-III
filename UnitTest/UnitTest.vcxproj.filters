@@ -24,6 +24,15 @@
     <ClCompile Include="TestOfTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestOfTableBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestOfTableExport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LongRunningTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">

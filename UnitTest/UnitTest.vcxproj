@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LongRunningTests.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -164,6 +165,8 @@
     </ClCompile>
     <ClCompile Include="TestOfColumn.cpp" />
     <ClCompile Include="TestOfTable.cpp" />
+    <ClCompile Include="TestOfTableBuilder.cpp" />
+    <ClCompile Include="TestOfTableExport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
