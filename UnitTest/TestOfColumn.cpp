@@ -35,24 +35,12 @@ namespace UnitTest
 			double averageOfEmptyColumn = emptyColumn.getAverage();
 
 			// Assert
-			//CTestResult cTestResult{ CTestResult::Failure };
 			constexpr size_t expectedNoOfRows = 0;
-			//if (actualNoOfColumns != expectedNoOfRows) {
-			//	return CTestResult::Failure;
-			//}
 			Assert::AreEqual(actualNoOfColumns, expectedNoOfRows);
-			// 
-			//if (emptyColumnName != emptyColumnHeader) {
-			//	return CTestResult::Failure;
-			//}
+
 			Assert::AreEqual(emptyColumnName, emptyColumnHeader);
-			//if (!emptyColumnValues.empty()) {
-			//	return CTestResult::Failure;
-			//}
+
 			constexpr double expectedMeanOfEmptyColumn = 0;
-			//if (expectedMeanOfEmptyColumn != averageOfEmptyColumn) {
-			//	return CTestResult::Failure;
-			//}
 			Assert::AreEqual(expectedMeanOfEmptyColumn, averageOfEmptyColumn);
 
 			//try {
@@ -99,90 +87,19 @@ namespace UnitTest
 			// Assert
 			size_t expectedNoOfRows = input.size();
 			Assert::AreEqual(actualNoOfColumns, expectedNoOfRows);
-			//if (actualNoOfColumns != expectedNoOfRows) {
-			//	return CTestResult::Failure;
-			//}
 			
 			Assert::AreEqual(actualColumnName, inputColumnName);
-			//if (actualColumnName != inputColumnName) {
-			//	return CTestResult::Failure;
-			//}
 			
 			Assert::AreEqual(secondItem, input.at(1));
-			//if (secondItem != input.at(1)) {
-			//	return CTestResult::Failure;
-			//}
 			
-			//Assert::AreEqual(allRows, input);
-			//if (allRows != input) {
-			//	return CTestResult::Failure;
-			//}
+			bool valuesAreEqual = (allRows == input);
+			Assert::IsTrue(valuesAreEqual);
 			
 			double expectedSum{0};
 			std::for_each(input.begin(), input.end(), [&expectedSum](double& item) {expectedSum += item; });
 			Assert::AreEqual(average, expectedSum / expectedNoOfRows);
-			//if (average != expectedSum / expectedNoOfRows) {
-			//	return CTestResult::Failure;
-			//}
-			
-			//return CTestResult::Success;
 		}
+
+		
 	};
 }
-
-
-//int testGetNoRowsForSimpleColumn() {
-//	// Arrange
-//	std::cout << "testGetNoRowsForSimpleColumn()" << std::endl;
-//	std::vector<double> input = { 0, 1, 2 };
-//	std::string inputColumnName{ "Column test No. 1" };
-//	Column column{ input, inputColumnName };
-//
-//	// Act 
-//	size_t actualNoOfColumns = column.getNoRows();
-//	std::string actualColumnName = column.getHeader();
-//	double secondItem = column.getValueForOneSpecifiedRow(1);
-//	std::vector<double> allRows = column.getValuesForAllRows();
-//	double average = column.getAverage();
-//	//std::vector<double>
-//
-//	// Assert
-//	size_t expectedNoOfRows = input.size();
-//	if (actualNoOfColumns != expectedNoOfRows) {
-//		return CTestResult::Failure;
-//	}
-//
-//	if (actualColumnName != inputColumnName) {
-//		return CTestResult::Failure;
-//	}
-//
-//	if (secondItem != input.at(1)) {
-//		return CTestResult::Failure;
-//	}
-//
-//	if (allRows != input) {
-//		return CTestResult::Failure;
-//	}
-//
-//	double expectedSum{0};
-//	std::for_each(input.begin(), input.end(), [&expectedSum](double& item) {expectedSum += item; });
-//	if (average != expectedSum / expectedNoOfRows) {
-//		return CTestResult::Failure;
-//	}
-//
-//	return CTestResult::Success;
-//}
-//
-//} // namespace UnitTest
-//} // namespace Core
-//} // namespace ConsoleAppRansacIINamespace
-//
-//int main() {
-//	using namespace ConsoleAppRansacIINamespace::Core::UnitTest;
-//
-//	bool overallResult =
-//		testForEmptyColumn() ||   // check the empty column use case
-//		testGetNoRowsForSimpleColumn();    // check the simple column use case
-//		//testGetNoRowsForExtremeLengthColumn(); 
-//	return overallResult;
-//}
