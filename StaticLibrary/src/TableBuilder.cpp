@@ -30,7 +30,8 @@ void CsvTableBuilder::buildTable() {
 	// read the file line by line
 	std::vector<std::string> allLines;
 	std::string line;
-	while (getline(inputFile, line)) {
+	//std::istream& isHeader = std::getline(inputFile, line);
+	while (std::getline(inputFile, line)) {
 		if (!line.empty() && (line.back() == '\n' || line.back() == '\r')) {
 			line.erase(line.size() - 1);
 		}
@@ -57,7 +58,7 @@ void CsvTableBuilder::buildTable() {
 	_currentTable = std::make_unique<Table>((tokenizedCsv.at(0)).at(0));
 
 	// create columns from the tokenized line
-	for (size_t columnIndex = 0; columnIndex < tokenizedCsv.at(0).size(); ++columnIndex) {
+	for (size_t columnIndex = 0; columnIndex < tokenizedCsv.at(1).size(); ++columnIndex) {
 		std::string columnHeader = tokenizedCsv.at(1).at(columnIndex);
 		std::vector<double> columnValues;
 		for (size_t rowIndex = 2; rowIndex < tokenizedCsv.size(); ++rowIndex) {

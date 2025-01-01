@@ -37,12 +37,12 @@ int main(int argc, char* argv[])
 	std::unique_ptr<Table> pTable = csvTableBuilder.getTable();
 
 
-	// Least Squares Fit
-	cout << "Performing Least Squares Fit" << endl;
 	Column abcissa = pTable->getColumn(0);
 	std::vector<double> abcissaValues = abcissa.getValuesForAllRows();
 	Column ordinate = pTable->getColumn(1);
 
+	// Least Squares Fit
+	cout << "Performing Least Squares Fit" << endl;
 	LeastSquaresFitStrategy leastSquaresFitStrategy;
 	LinearModel leastSquaresLinearFit;
 	leastSquaresFitStrategy.fitModel(leastSquaresLinearFit, abcissa, ordinate);
