@@ -163,6 +163,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TestOfColumn.cpp" />
+    <ClCompile Include="TestOfTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

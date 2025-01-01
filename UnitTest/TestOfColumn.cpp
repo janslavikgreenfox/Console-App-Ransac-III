@@ -99,7 +99,5 @@ namespace UnitTest
 			std::for_each(input.begin(), input.end(), [&expectedSum](double& item) {expectedSum += item; });
 			Assert::AreEqual(average, expectedSum / expectedNoOfRows);
 		}
-
-		
 	};
 }
