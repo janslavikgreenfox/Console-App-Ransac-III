@@ -15,6 +15,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "UnitTest\UnitTe
 		{A459537D-093F-48D4-AC24-B0CB2AED118B} = {A459537D-093F-48D4-AC24-B0CB2AED118B}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{537347E9-7474-4D61-AC3C-826F4C4FD0EA}"
+	ProjectSection(SolutionItems) = preProject
+		Console-App-Ransac-III\docs\doxyfile = Console-App-Ransac-III\docs\doxyfile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
