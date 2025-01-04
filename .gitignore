@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /Executable/output.csv
 /Executable/simpleTableTest.csv
+/Console-App-Ransac-III/docs/html
+/Console-App-Ransac-III/docs/latex
