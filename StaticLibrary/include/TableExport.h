@@ -10,6 +10,7 @@ namespace IO {
 
 /**
 * @class TableExport
+* @brief A class that exports a table to a CSV file or string.
 */
 class TableExport {
   public:

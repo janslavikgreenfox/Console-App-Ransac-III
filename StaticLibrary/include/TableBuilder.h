@@ -33,7 +33,10 @@ class TableBuilder {
   private:
 };
 
-
+/**
+* @class CsvTableBuilder
+* @brief A class that builds a table from a CSV file.
+*/
 class CsvTableBuilder : public TableBuilder {
   public:
 	/**

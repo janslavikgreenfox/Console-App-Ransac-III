@@ -12,9 +12,9 @@ namespace IO {
 
 /**
 * @class TableFacade
-* @brief A facade for a table.
+* @brief The facade design pattern to bundle the Table class, the Table inputs and outputs.
 * 
-* This class is a facade for a table. It provides a simple interface to the table.
+* This class is a facade for a table. It provides a simple interface to all table operations.
 * 
 */
 class TableFacade {
