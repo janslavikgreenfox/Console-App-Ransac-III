@@ -4,11 +4,8 @@
 
 #include <fstream>
 #include <sstream>
-//#include <boost/tokenizer.hpp>
 #include <string>
 #include <vector>
-
-//using namespace boost;
 
 using Column = ConsoleAppRansacIINamespace::Core::Column;
 

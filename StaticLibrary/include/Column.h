@@ -5,12 +5,16 @@
 #include <string>
 #include <stdexcept>
 
-namespace columnUtils {
-	std::vector<size_t> getRandomIndexes(size_t numberOfSelectedPoints, size_t noOfRows);
-}
-
 namespace ConsoleAppRansacIINamespace {
 namespace Core {
+
+/**
+* @brief Select indexes from a range of numbers randomly
+* @param numberOfSelectedPoints The number of points to be selected
+* @param noOfRows The total number of points
+* @return A vector of randomly selected indexes
+*/
+std::vector<size_t> getRandomIndexes(size_t numberOfSelectedPoints, size_t noOfRows);
 
 /**
 * @class Column
