@@ -23,16 +23,6 @@ std::vector<size_t> getRandomIndexes(size_t numberOfSelectedPoints, size_t noOfR
 * @details The class represents a linear model between two variables, X and Y, where Y = _slopeBeta * X + _yInterceptAlpha.
 */
 class LinearModel {
-    private:
-		/**
-		* @brief The y-intercept value of the linear model Y = _slopeBeta * X + _yInterceptAlpha.
-		*/
-	    double _yInterceptAlpha;
-
-		/**
-		* @brief The slope (gradient) value of the linear model Y = _slopeBeta * X + _yInterceptAlpha.
-		*/
-	    double _slopeBeta;
 
 	public:
 		/**
@@ -118,6 +108,17 @@ class LinearModel {
 		* @param ordinate The ordinate values.
 		*/
 		double sumOfSquaredResiduals(const Column& abcissa, const Column& ordinate);
+
+private:
+		/**
+		* @brief The y-intercept value of the linear model Y = _slopeBeta * X + _yInterceptAlpha.
+		*/
+	    double _yInterceptAlpha;
+
+		/**
+		* @brief The slope (gradient) value of the linear model Y = _slopeBeta * X + _yInterceptAlpha.
+		*/
+	    double _slopeBeta;
 };
 
 } // namespace Core
