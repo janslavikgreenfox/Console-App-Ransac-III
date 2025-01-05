@@ -23,7 +23,12 @@ public:
 	* @brief Constructor for the TableFacade class.
 	* @param tableName The name of the table.
 	*/
-	TableFacade(std::string& tableName) : _table{ tableName }, _tableExport{} {
+	TableFacade(std::string& tableName, std::unique_ptr<TableBuilder> ptrTableBuilder) 
+		: _tableExport{},
+		  _pTableBuilder{ std::move(ptrTableBuilder) } 
+	{
+		  _pTableBuilder->buildTable();
+		  _pTable = _pTableBuilder->getTable();
 	};
 
 	/**
@@ -60,7 +65,7 @@ public:
 	* @return The name of the table.
 	*/
 	size_t getNoOfColumns() const {
-		return _table.getNoOfColumns();
+		return _pTable->getNoOfColumns();
 	}
 
 	/**
@@ -68,7 +73,7 @@ public:
 	* @return The common number of rows in all columns.
 	*/
 	size_t getCommonNoOfRows() const {
-		return _table.getCommonNoOfRows();
+		return _pTable->getCommonNoOfRows();
 	}
 
 	/**
@@ -76,7 +81,7 @@ public:
 	* @param column The column to be added.
 	*/
 	void appendColumn(const Column& column) {
-		_table.appendColumn(column);
+		_pTable->appendColumn(column);
 	}
 
 	/**
@@ -85,7 +90,7 @@ public:
 	* @return The column at the specified index.
 	*/
 	Column getColumn(size_t columnIndex) const {
-		return _table.getColumn(columnIndex);
+		return _pTable->getColumn(columnIndex);
 	}
 
 	/**
@@ -95,7 +100,7 @@ public:
 	* @return The value at the specified cell of the table.
 	*/
 	double getCellValue(size_t cellRowIndex, size_t cellColumnIndex) const {
-		return _table.getCellValue(cellRowIndex, cellColumnIndex);
+		return _pTable->getCellValue(cellRowIndex, cellColumnIndex);
 	}
 
 	/**
@@ -104,21 +109,21 @@ public:
 	* @return The table as a CSV string.
 	*/
 	void exportTableToCsvFile(const std::string& fileName, const char delimiter = ',') const {
-		_tableExport.ExportToCsvFile(_table, fileName, delimiter);
+		_tableExport.ExportToCsvFile(*_pTable, fileName, delimiter);
 	}
 
   private:
 	  /**
 	  * @brief The table.
 	  */
-	  Table _table;
+	  std::unique_ptr<Table> _pTable;
 
 	  /**
 	  * @brief The table export.
 	  */
 	  TableExport _tableExport;
 
-	  //TableBuilder _tableBuilder;
+	  std::unique_ptr<TableBuilder> _pTableBuilder;
 };
 
 } // namespace Core
