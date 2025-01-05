@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Baseline.h" />
+    <ClInclude Include="include\Common.h" />
     <ClInclude Include="include\Column.h" />
     <ClInclude Include="include\ILinearModelFitStrategy.h" />
     <ClInclude Include="include\LeastSquaresFitStrategy.h" />

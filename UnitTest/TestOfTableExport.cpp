@@ -1,7 +1,7 @@
 #include "Table.h"
 #include "Column.h"
 #include "TableExport.h"
-#include "Baseline.h"
+#include "Common.h"
 #include "CppUnitTest.h"
 
 using Column = ConsoleAppRansacIINamespace::Core::Column;
