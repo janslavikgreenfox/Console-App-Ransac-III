@@ -37,7 +37,8 @@ class CsvTableBuilder : public ITableBuilder {
 	* @param csvFilename The name of the CSV file.
 	* @param hdLines The number of header lines in the CSV file.
 	*/
-	CsvTableBuilder(std::string csvFilename = "", int hdLines = 0);
+	  CsvTableBuilder(std::string csvFilename = "", int hdLines = 0);
+		 // : _csvFilename{ csvFilename }, _hdLines{ hdLines };
 
 	/**
 	* @brief Builds a table.
@@ -60,6 +61,11 @@ class CsvTableBuilder : public ITableBuilder {
 	* @brief The created table.
 	*/
 	std::unique_ptr<Table>	_currentTable;
+
+	/**
+	* @brief The number of header lines in the CSV file.
+ 	*/
+	int _hdLines;
 };
 
 } // namespace IO

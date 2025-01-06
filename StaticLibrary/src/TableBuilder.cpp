@@ -12,9 +12,9 @@ using Column = ConsoleAppRansacIINamespace::Core::Column;
 namespace ConsoleAppRansacIINamespace {
 namespace IO {
 
-CsvTableBuilder::CsvTableBuilder(std::string csvFilename, int hdLines) {
-	_csvFilename = csvFilename;
-	//_userSetNoHeaderRows = hdLines;
+CsvTableBuilder::CsvTableBuilder(std::string csvFilename, int hdLines) 
+	: _csvFilename{ csvFilename }, _hdLines{ hdLines }
+{
 	_currentTable = std::make_unique<Table>();
 };
 
