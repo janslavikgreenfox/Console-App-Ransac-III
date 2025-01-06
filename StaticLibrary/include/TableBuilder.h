@@ -10,10 +10,10 @@ namespace ConsoleAppRansacIINamespace {
 namespace IO {
 
 /**
-* @class TableBuilder
+* @class ITableBuilder
 * @brief An interface for a table builder.
 */
-class TableBuilder {
+class ITableBuilder {
   public:
 	/**
 	* @brief Builds a table.
@@ -24,20 +24,13 @@ class TableBuilder {
 	* @brief Gets the table.
 	*/
 	virtual std::unique_ptr<Table> getTable() = 0;
-
-  protected:
-	/**
-	* @brief Constructor for the TableBuilder class.
-	*/
-	TableBuilder() {};
-  private:
 };
 
 /**
 * @class CsvTableBuilder
 * @brief A class that builds a table from a CSV file.
 */
-class CsvTableBuilder : public TableBuilder {
+class CsvTableBuilder : public ITableBuilder {
   public:
 	/**
 	* @brief Constructor for the CsvTableBuilder class.

@@ -23,7 +23,7 @@ public:
 	* @brief Constructor for the TableFacade class.
 	* @param tableName The name of the table.
 	*/
-	TableFacade(std::string& tableName, std::unique_ptr<TableBuilder> ptrTableBuilder) 
+	TableFacade(std::string& tableName, std::unique_ptr<ITableBuilder> ptrTableBuilder) 
 		: _tableExport{},
 		  _pTableBuilder{ std::move(ptrTableBuilder) } 
 	{
@@ -123,7 +123,7 @@ public:
 	  */
 	  TableExport _tableExport;
 
-	  std::unique_ptr<TableBuilder> _pTableBuilder;
+	  std::unique_ptr<ITableBuilder> _pTableBuilder;
 };
 
 } // namespace Core
