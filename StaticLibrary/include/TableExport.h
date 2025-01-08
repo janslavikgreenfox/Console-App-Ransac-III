@@ -42,8 +42,8 @@ class TableExportToCsvBase : public ITableExport {
 	* @param ptrTable The pointer to a table to export.
 	* @param delimiter The delimiter character.
 	*/
-	  TableExportToCsvBase(std::shared_ptr<Table> ptrTable, const char delimiter = ',')
-		  : _pTable{ std::move(ptrTable) }, _delimiter{}, _csvString{} {};
+	  TableExportToCsvBase(std::shared_ptr<Table> ptrTable, char delimiter = ',')
+		  : _pTable{ ptrTable }, _delimiter{delimiter}, _csvString{} {};
 
 	/**
 	* @brief Exports a table to a CSV string.
@@ -82,7 +82,8 @@ class TableExportToCsvBase : public ITableExport {
 /**
 * @class TableExportToCsvFile
 */
-class TableExportToCsvFile : public TableExportToCsvBase {
+//class TableExportToCsvFile : public TableExportToCsvBase {
+class TableExportToCsvFile : public ITableExport {
 
   public:
 	/**
@@ -92,10 +93,15 @@ class TableExportToCsvFile : public TableExportToCsvBase {
 	* @param delimiter The delimiter character.
 	*/
 	TableExportToCsvFile(
-		std::shared_ptr<Table> ptrTable, const std::string fileName, const char delimiter)
-		: TableExportToCsvBase{ std::move(ptrTable), delimiter  }, _fileName{ fileName }
+		std::shared_ptr<Table> ptrTable, const std::string& fileName, char delimiter)
+		  :
+		    _pTable { ptrTable }, 
+		    _fileName{ fileName },
+		    _delimiter{ delimiter }
     {
-		TableExportToCsvBase::generateCsvString();
+		_pTableExportToCsvBase = std::make_unique<TableExportToCsvBase>( ptrTable, delimiter );
+		
+		//TableExportToCsvBase::generateCsvString();
 	};
 
 	/**
@@ -107,10 +113,14 @@ class TableExportToCsvFile : public TableExportToCsvBase {
 	* @brief Gets the CSV string.
 	*/
 	std::string getExportedString() const override { 
-		return TableExportToCsvBase::getExportedString(); 
+		return _pTableExportToCsvBase->getExportedString(); 
 	};
 
 private:
+	/**
+	* @brief The table export to CSV string.
+	*/
+	std::unique_ptr<TableExportToCsvBase> _pTableExportToCsvBase;
 	/**
 	* @brief The table to export.
 	*/
@@ -119,7 +129,7 @@ private:
 	/**
 	* @brief The name of the CSV file.
 	*/
-	std::string _fileName;
+	const std::string& _fileName;
 
 	/**
 	* @brief The delimiter character.
