@@ -17,6 +17,8 @@ using Column = ConsoleAppRansacIINamespace::Core::Column;
 using LeastSquaresFitStrategy = ConsoleAppRansacIINamespace::Fitting::LeastSquaresFitStrategy;
 using RANSACFitStrategy = ConsoleAppRansacIINamespace::Fitting::RANSACFitStrategy;
 using TableExport = ConsoleAppRansacIINamespace::IO::TableExport;
+using ITableExport = ConsoleAppRansacIINamespace::IO::ITableExport;	
+using TableExportToCsvFile = ConsoleAppRansacIINamespace::IO::TableExportToCsvFile;
 
 int main(int argc, char* argv[])
 {
@@ -34,7 +36,8 @@ int main(int argc, char* argv[])
 	cout << "Building Table from CSV file: " << filename << endl;
 	CsvTableBuilder csvTableBuilder{ filename, 1 };
 	csvTableBuilder.buildTable();
-	std::unique_ptr<Table> pTable = csvTableBuilder.getTable();
+	//std::unique_ptr<Table> pTable = csvTableBuilder.getTable();
+	std::shared_ptr<Table> pTable = csvTableBuilder.getTable();
 
 
 	Column abcissa = pTable->getColumn(0);
@@ -63,8 +66,11 @@ int main(int argc, char* argv[])
 
 	// Export Table
 	cout << "Exporting Table to CSV file" << endl;
-	TableExport tableExport{};
-	tableExport.ExportToCsvFile(*pTable, "output.csv",',');
+	//TableExport tableExport{};
+	//tableExport.ExportToCsvFile(*pTable, "output.csv",',');
+	constexpr char outputFilename[] = "output.csv";
+	std::unique_ptr<ITableExport> tableExporter = std::make_unique<TableExportToCsvFile>(pTable, outputFilename, ',');
+	tableExporter->exportTable();
 
 	// Exit	
 	return 0;
