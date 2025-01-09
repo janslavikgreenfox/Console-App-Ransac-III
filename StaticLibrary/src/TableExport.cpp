@@ -12,7 +12,7 @@ void TableExportToCsvBase::exportTable() const {
 
 void TableExportToCsvBase::generateCsvString() {
 	// Table name
-	_csvString = std::string(" ");
+	_csvString = std::string("");
 	_csvString = std::string(_pTable->getName() + std::string("\n"));
 
 	// Columns headers

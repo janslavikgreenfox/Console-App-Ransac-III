@@ -66,8 +66,6 @@ int main(int argc, char* argv[])
 
 	// Export Table
 	cout << "Exporting Table to CSV file" << endl;
-	//TableExport tableExport{};
-	//tableExport.ExportToCsvFile(*pTable, "output.csv",',');
 	constexpr char outputFilename[] = "output.csv";
 	std::unique_ptr<ITableExport> tableExporter = std::make_unique<TableExportToCsvFile>(pTable, outputFilename, ',');
 	tableExporter->exportTable();

@@ -43,7 +43,10 @@ class TableExportToCsvBase : public ITableExport {
 	* @param delimiter The delimiter character.
 	*/
 	  TableExportToCsvBase(std::shared_ptr<Table> ptrTable, char delimiter = ',')
-		  : _pTable{ ptrTable }, _delimiter{delimiter}, _csvString{} {};
+		  : _pTable{ ptrTable }, _delimiter{delimiter}
+	  {
+		  generateCsvString();
+	  };
 
 	/**
 	* @brief Exports a table to a CSV string.
@@ -53,16 +56,19 @@ class TableExportToCsvBase : public ITableExport {
 	/**
 	* @brief Gets the CSV string.
 	*/
-	std::string getExportedString() const override { return _csvString; }
+	std::string getExportedString() const override { 
+		return _csvString; 
+	}
 
   protected:
+
+  private:
 	/**
 	* @brief Generates a CSV string.
 	* 
 	*/
 	void generateCsvString();
 
-  private:
    /**
    * @brief The table to export.
    */
@@ -94,14 +100,11 @@ class TableExportToCsvFile : public ITableExport {
 	*/
 	TableExportToCsvFile(
 		std::shared_ptr<Table> ptrTable, const std::string& fileName, char delimiter)
-		  :
-		    _pTable { ptrTable }, 
+		  : _pTable { ptrTable }, 
 		    _fileName{ fileName },
 		    _delimiter{ delimiter }
     {
 		_pTableExportToCsvBase = std::make_unique<TableExportToCsvBase>( ptrTable, delimiter );
-		
-		//TableExportToCsvBase::generateCsvString();
 	};
 
 	/**
@@ -113,7 +116,8 @@ class TableExportToCsvFile : public ITableExport {
 	* @brief Gets the CSV string.
 	*/
 	std::string getExportedString() const override { 
-		return _pTableExportToCsvBase->getExportedString(); 
+		std::string exportedString = _pTableExportToCsvBase->getExportedString(); 
+		return exportedString;
 	};
 
 private:
@@ -129,7 +133,7 @@ private:
 	/**
 	* @brief The name of the CSV file.
 	*/
-	const std::string& _fileName;
+	const std::string _fileName;
 
 	/**
 	* @brief The delimiter character.
@@ -139,7 +143,7 @@ private:
 	/**
 	*
 	*/
-	std::string _csvString;
+	//std::string _csvString;
 };
 
 /**
