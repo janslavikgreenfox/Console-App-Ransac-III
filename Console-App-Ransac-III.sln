@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{537347E9-7474-4D61-AC3C-826F4C4FD0EA}"
 	ProjectSection(SolutionItems) = preProject
 		Console-App-Ransac-III\docs\doxyfile = Console-App-Ransac-III\docs\doxyfile
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
