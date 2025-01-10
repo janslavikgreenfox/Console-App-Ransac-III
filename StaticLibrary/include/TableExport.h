@@ -122,10 +122,6 @@ class TableExportToCsvFile : public ITableExport {
 
 private:
 	/**
-	* @brief The table export to CSV string.
-	*/
-	std::unique_ptr<TableExportToCsvBase> _pTableExportToCsvBase;
-	/**
 	* @brief The table to export.
 	*/
 	std::shared_ptr<Table> _pTable;
@@ -141,9 +137,9 @@ private:
 	char _delimiter;
 
 	/**
-	*
+	* @brief The table export to CSV string.
 	*/
-	//std::string _csvString;
+	std::unique_ptr<TableExportToCsvBase> _pTableExportToCsvBase;
 };
 
 /**

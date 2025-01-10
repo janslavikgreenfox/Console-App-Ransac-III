@@ -62,8 +62,15 @@ void TableExportToCsvFile::exportTable() const {
 	//_csvString = getExportedString();
 	std::ofstream exportFile;
 	exportFile.open(_fileName);
-	exportFile << getExportedString(); //_csvString;
+	if (!exportFile.is_open()) {
+		std::cout << "Failed to open file: " << _fileName << std::endl;
+	}
+	std::string stringToExport = getExportedString();
+	exportFile << stringToExport; //_csvString;
 	exportFile.close();
+	if (exportFile.fail()) {
+		std::cout << "Failed to write to file: " << _fileName << std::endl;
+	}
 }
 
 void TableExport::ExportToCsvFile(const Table& table, std::string fileName = "exportTable.csv", const char delimiter = ',') const {

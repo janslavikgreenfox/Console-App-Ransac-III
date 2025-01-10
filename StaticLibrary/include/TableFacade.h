@@ -23,12 +23,15 @@ public:
 	* @brief Constructor for the TableFacade class.
 	* @param tableName The name of the table.
 	*/
-	TableFacade(std::string& tableName, std::unique_ptr<ITableBuilder> ptrTableBuilder) 
-		: _tableExport{},
+	TableFacade(const std::string& tableName, 
+		std::unique_ptr<ITableBuilder>& ptrTableBuilder) 
+		: 
 		  _pTableBuilder{ std::move(ptrTableBuilder) } 
 	{
 		  _pTableBuilder->buildTable();
 		  _pTable = _pTableBuilder->getTable();
+		  //constexpr char outputFilename[] = "output.csv";
+		  //_pTableExport = std::make_unique<TableExportToCsvFile>(_pTable, outputFilename,',');
 	};
 
 	/**
@@ -108,20 +111,38 @@ public:
 	* @param delimiter The delimiter character.
 	* @return The table as a CSV string.
 	*/
-	void exportTableToCsvFile(const std::string& fileName, const char delimiter = ',') const {
-		_tableExport.ExportToCsvFile(*_pTable, fileName, delimiter);
+	void exportTable()  {
+		constexpr char outputFilename[] = "output.csv";
+		std::unique_ptr<TableExportToCsvFile> ptrTableExportToCsvFile = std::make_unique<TableExportToCsvFile>(_pTable, outputFilename, ',');
+		_pTableExport = std::move(ptrTableExportToCsvFile);
+		_pTableExport->exportTable();
+		//ExportToCsvFile(*_pTable, fileName, delimiter);
+	}
+
+	/**
+	* @brief Export the table to a CSV string.
+	* @param delimiter The delimiter character.
+	* @return The table as a CSV string.
+	*/
+	void exportTableToCsvFile()  {
+		constexpr char outputFilename[] = "output.csv";
+		std::unique_ptr<TableExportToCsvFile> ptrTableExportToCsvFile = std::make_unique<TableExportToCsvFile>(_pTable, outputFilename, ',');
+		_pTableExport = std::move(ptrTableExportToCsvFile);
+		//_pTableExport = std::make_unique<TableExportToCsvFile>(_pTable, outputFilename, ',');
+		_pTableExport->exportTable();
+			//ExportToCsvFile(*_pTable, fileName, delimiter);
 	}
 
   private:
 	  /**
 	  * @brief The table.
 	  */
-	  std::unique_ptr<Table> _pTable;
+	  std::shared_ptr<Table> _pTable;
 
 	  /**
 	  * @brief The table export.
 	  */
-	  TableExport _tableExport;
+	  std::unique_ptr<ITableExport> _pTableExport;
 
 	  std::unique_ptr<ITableBuilder> _pTableBuilder;
 };
