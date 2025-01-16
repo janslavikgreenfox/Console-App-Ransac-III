@@ -99,6 +99,15 @@ public:
     * @param ordinate The ordinate values of the data points.
     */
     virtual void fitModel(LinearModel& model, const Column& abcissa, const Column& ordinate) override;
+
+private:
+	/**
+	* @brief Select indexes from a range of numbers randomly
+	* @param numberOfSelectedPoints The number of points to be selected
+	* @param noOfRows The total number of points
+	* @return A vector of randomly selected indexes
+	*/
+	std::vector<size_t> getRandomIndexes(size_t numberOfSelectedPoints, size_t noOfRows);
 };
 
 } // namespace Fitting

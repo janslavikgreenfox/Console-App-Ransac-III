@@ -1,28 +1,11 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <random>
 #include <set>
 #include "Column.h"
 
 namespace ConsoleAppRansacIINamespace {
 namespace Core {
-
-//namespace columnUtils {
-	std::vector<size_t> getRandomIndexes(size_t numberOfSelectedPoints, size_t noOfRows) {
-		std::random_device rd;
-		std::default_random_engine generator(rd());
-		std::uniform_int_distribution<size_t> distribution(0, noOfRows - 1);
-		std::set<size_t, std::less<>> selectedIndexes;
-		while (selectedIndexes.size() < numberOfSelectedPoints) {
-			selectedIndexes.insert(distribution(generator));
-		}
-		std::vector<size_t> orderedSelection(selectedIndexes.begin(), selectedIndexes.end());
-		std::sort(orderedSelection.begin(), orderedSelection.end());
-		return orderedSelection;
-	}
-//}
-
 
 Column::Column(const std::vector<double>& rowVector, const std::string header)
 	: _colHeader(header), _noRows(rowVector.size())

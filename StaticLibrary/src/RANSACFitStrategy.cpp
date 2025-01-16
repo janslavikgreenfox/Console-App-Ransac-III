@@ -2,6 +2,7 @@
 #include "LeastSquaresFitStrategy.h"
 
 #include <set>
+#include <random>
 
 namespace ConsoleAppRansacIINamespace {
 namespace Fitting {
@@ -17,7 +18,8 @@ void RANSACFitStrategy::fitModel(LinearModel& model, const Column& abcissa, cons
 
 	while (iterations < parameters.getNumberOfIterations()) {
 		vector<size_t> randomIndexesSample = 
-			ConsoleAppRansacIINamespace::Core::getRandomIndexes(parameters.getNumberOfRandomSelectedPoints(), ordinate.getNoRows());
+			//ConsoleAppRansacIINamespace::Core::getRandomIndexes(parameters.getNumberOfRandomSelectedPoints(), ordinate.getNoRows());
+		    getRandomIndexes(parameters.getNumberOfRandomSelectedPoints(), ordinate.getNoRows());
 		Column sampledAbcissa  = abcissa.getValuesForSpecifiedRows(randomIndexesSample);
 		Column sampledOrdinate = ordinate.getValuesForSpecifiedRows(randomIndexesSample);
 		LinearModel maybeModel;
@@ -54,6 +56,20 @@ void RANSACFitStrategy::fitModel(LinearModel& model, const Column& abcissa, cons
 	model = bestModel;
 }
 
+//namespace columnUtils {
+std::vector<size_t> RANSACFitStrategy::getRandomIndexes(size_t numberOfSelectedPoints, size_t noOfRows) {
+	std::random_device rd;
+	std::default_random_engine generator(rd());
+	std::uniform_int_distribution<size_t> distribution(0, noOfRows - 1);
+	std::set<size_t, std::less<>> selectedIndexes;
+	while (selectedIndexes.size() < numberOfSelectedPoints) {
+		selectedIndexes.insert(distribution(generator));
+	}
+	std::vector<size_t> orderedSelection(selectedIndexes.begin(), selectedIndexes.end());
+	std::sort(orderedSelection.begin(), orderedSelection.end());
+	return orderedSelection;
+}
+//}
 
 } // namespace Fitting
 } // namespace ConsoleAppRansacIINamespace
