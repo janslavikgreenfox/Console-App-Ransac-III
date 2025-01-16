@@ -1,19 +1,55 @@
 # Console-App-Ransac-III
 
-The application is a CLI application that processes a CSV file to compute a linear fits for multiple 2D datasets using the RANSAC algorithm.
+The application is a CLI tool designed to process a CSV file containing 2D data and compute linear fits using least squares and the RANSAC algorithm.
 
 ## Description
 
-The application takes a CSV file as input. The file should have `n` columns where:
+The application takes a CSV file as input. The file should have exactly **two columns**:
 
 - The **first column** represents the abscissa (x-values).
-- Columns **2 to n** represent the ordinates (y-values) for `n-1` sets of 2D data: `(column[1], column[i])` for `i = 2...n`.
+- The **second column** represents the ordinate (y-values).
 
 The application performs the following tasks:
 
-1. Computes the linear fit for each 2D dataset using the RANSAC algorithm.
-2. Adds `n-1` additional columns to the CSV file. These new columns contain the ordinates of the linear fits for the corresponding datasets, computed at the abscissa values (column[1]).
+1. Computes the linear fit for the dataset using the least squares method.
+2. Computes the linear fit for the dataset using the RANSAC algorithm.
+3. Produces a new CSV file that includes:
+   - The original abscissa values (column 1).
+   - The original ordinate values (column 2).
+   - The ordinate values of the least squares fit evaluated at the abscissa knots (column 3).
+   - The ordinate values of the RANSAC fit evaluated at the abscissa knots (column 4).
 
-I.e., `column[i+n]` will contain the ordinate values of the linear fit for `(column[1], column[i])` at the points defined in `column[1]` for `i = 2...n`.
+The output CSV will have the following format:
 
-The result is a new CSV file that will have the same number of rows as the input file, but `n` additional columns.
+| Abscissa (x) | Ordinate (y) | Least Squares Fit | RANSAC Fit |
+|--------------|--------------|-------------------|------------|
+| x1           | y1           | y1_fit_ls         | y1_fit_ransac |
+| x2           | y2           | y2_fit_ls         | y2_fit_ransac |
+| ...          | ...          | ...               | ...          |
+
+This structure allows for easy comparison of the original data with the computed linear fits.
+
+## Usage
+
+1. Prepare a CSV file with two columns: `abscissa` and `ordinate`.
+2. Run the application and provide the input file path.
+3. The application will generate a new CSV file with the computed results.
+
+## Example
+
+### Input CSV:
+```
+Abscissa,Ordinate
+1.0,2.1
+2.0,4.2
+3.0,6.1
+4.0,8.3
+```
+
+### Output CSV:
+```
+Abscissa,Ordinate,Least Squares Fit,RANSAC Fit
+1.0,2.1,2.0,2.05
+2.0,4.2,4.0,4.10
+3.0,6.1,6.0,6.05
+4.0,8.3,8.0,8.10 
