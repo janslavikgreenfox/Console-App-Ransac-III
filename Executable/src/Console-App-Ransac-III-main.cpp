@@ -50,15 +50,6 @@ int main(int argc, char* argv[])
 	constexpr char tableName[] = "Test Table";
 	TableFacade tableFacade{ tableName, tableBuilder };
 
-
-	// Build Table
-	//cout << "Building Table from CSV file: " << filename << endl;
-	//CsvTableBuilder csvTableBuilder{ filename, 1 };
-	//csvTableBuilder.buildTable();
-	//std::unique_ptr<Table> pTable = csvTableBuilder.getTable();
-	//std::shared_ptr<Table> pTable = csvTableBuilder.getTable();
-
-
 	//Column abcissa = pTable->getColumn(0);
 	Column abcissa = tableFacade.getColumn(0);
 	std::vector<double> abcissaValues = abcissa.getValuesForAllRows();
