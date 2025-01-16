@@ -72,29 +72,5 @@ double Table::getCellValue(size_t cellRowIndex, size_t cellColumnIndex) const {
 	}
 }
 
-
-//std::string Table::ExportToCsvString(const char delimiter = ',') {
-//	std::string csvOutput = "";
-//	for (size_t columnIndex = 0; columnIndex < _noOfColumns; columnIndex++) {
-//		csvOutput += _tableColumns[columnIndex].getHeader() + delimiter;
-//	}
-//	csvOutput += "\n";
-//	size_t currentNumberOfRows = _tableColumns[0].getNoRows();
-//	for (size_t rowIndex = 0; rowIndex < currentNumberOfRows; rowIndex++) {
-//	    for (size_t columnIndex = 0; columnIndex < _noOfColumns; columnIndex++) {
-//			csvOutput += std::to_string(getCellValue(rowIndex,columnIndex)) + delimiter;
-//		}
-//		csvOutput += "\n";
-//	}
-//	return csvOutput;
-//}
-//
-//void Table::ExportToCsvFile(std::string fileName="exportTable.csv", const char delimiter=',') {
-//	std::ofstream exportFile;
-//	exportFile.open(fileName);
-//	exportFile << ExportToCsvString(delimiter);
-//	exportFile.close();
-//}
-
 } // namespace Core
 } // namespace ConsoleAppRansacIINamespace
