@@ -365,3 +365,15 @@ FodyWeavers.xsd
 /Executable/simpleTableTest.csv
 /Console-App-Ransac-III/docs/html
 /Console-App-Ransac-III/docs/latex
+
+
+
+/build
+
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.ninja
+
+
