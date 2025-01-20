@@ -42,5 +42,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Build-Artifacts
-        path: build/Debug/
+        path: build/Executable/Debug/
 
