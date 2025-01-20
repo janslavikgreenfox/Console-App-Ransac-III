@@ -16,6 +16,7 @@
 
 #include <set>
 #include <random>
+#include <algorithm>
 
 namespace ConsoleAppRansacIINamespace {
 namespace Fitting {
