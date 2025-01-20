@@ -14,6 +14,7 @@
 #pragma once
 
 #include<limits>
+#include <memory>
 
 namespace ConsoleAppRansacIINamespace {
 namespace Core {
