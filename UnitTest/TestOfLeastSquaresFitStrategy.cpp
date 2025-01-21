@@ -48,5 +48,26 @@ namespace UnitTest
 			Assert::AreEqual(expectedSlope, linearModel.getSlope());
 			Assert::AreEqual(expectedYIntercept, linearModel.getValueAt0());
 		}
+
+		TEST_METHOD(TrivialCaseFor3Points)
+		{
+			// Arrange
+			std::vector<double> x{ 0.0, 1.0, 2.0 };
+			Column xColumn{ x, "Column X" };
+			std::vector<double> y{ -1.0, 0.0, 1.0 };
+			Column yColumn{ y, "Column Y" };
+			constexpr double expectedSlope{ +1.0 };
+			constexpr double expectedYIntercept{ -1.0 };
+
+			LinearModel linearModel;
+			LeastSquaresFitStrategy leastSquareFitStrategy;
+			
+			// Act
+			leastSquareFitStrategy.fitModel(linearModel, xColumn, yColumn);
+
+			// Assert
+			Assert::AreEqual(expectedSlope, linearModel.getSlope());
+			Assert::AreEqual(expectedYIntercept, linearModel.getValueAt0());
+		}
 	};
 }
