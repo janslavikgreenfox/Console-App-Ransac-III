@@ -50,10 +50,8 @@ int main(int argc, char* argv[])
 	constexpr char tableName[] = "Test Table";
 	TableFacade tableFacade{ tableName, tableBuilder };
 
-	//Column abcissa = pTable->getColumn(0);
 	Column abcissa = tableFacade.getColumn(0);
 	std::vector<double> abcissaValues = abcissa.getValuesForAllRows();
-	//Column ordinate = pTable->getColumn(1);
 	Column ordinate = tableFacade.getColumn(1);
 
 	// Least Squares Fit
@@ -74,14 +72,10 @@ int main(int argc, char* argv[])
 
 	std::vector<double> ransacOrdinateValues = ransacLinearFit.getMultipleValuesAt(abcissaValues);
 	Column ransacOrdinate{ ransacOrdinateValues, "RANSAC Fit" };
-	//pTable->appendColumn(ransacOrdinate);
 	tableFacade.appendColumn(ransacOrdinate);
 
 	// Export Table
 	cout << "Exporting Table to CSV file" << endl;
-	//constexpr char outputFilename[] = "output.csv";
-	//std::unique_ptr<ITableExport> tableExporter = std::make_unique<TableExportToCsvFile>(pTable, outputFilename, ',');
-	//tableExporter->exportTable();
 	tableFacade.exportTable();
 
 	// Exit	
