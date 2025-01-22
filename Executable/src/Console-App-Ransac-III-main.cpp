@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
 	cout << "Performing Least Squares Fit" << endl;
 	LeastSquaresFitStrategy leastSquaresFitStrategy;
 	LinearModel leastSquaresLinearFit;
-	leastSquaresFitStrategy.fitModel(leastSquaresLinearFit, abcissa, ordinate);
+	leastSquaresLinearFit = leastSquaresFitStrategy.fitLinearModel(abcissa, ordinate);
 
 	std::vector<double> leastSquaresOrdinateValues = leastSquaresLinearFit.getMultipleValuesAt(abcissaValues);
 	Column leastSquaresOrdinate{ leastSquaresOrdinateValues, "Least Squares Fit"};
@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
 	cout << "Performing RANSAC Fit" << endl;
 	RANSACFitStrategy ransacFitStrategy;
 	LinearModel ransacLinearFit;
-	ransacFitStrategy.fitModel(ransacLinearFit, abcissa, ordinate);
+	ransacLinearFit = ransacFitStrategy.fitLinearModel(abcissa, ordinate);
 
 	std::vector<double> ransacOrdinateValues = ransacLinearFit.getMultipleValuesAt(abcissaValues);
 	Column ransacOrdinate{ ransacOrdinateValues, "RANSAC Fit" };

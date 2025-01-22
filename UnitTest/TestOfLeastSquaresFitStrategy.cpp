@@ -42,7 +42,7 @@ namespace UnitTest
 			LeastSquaresFitStrategy leastSquareFitStrategy;
 
 			// Act
-			leastSquareFitStrategy.fitModel(linearModel, xColumn, yColumn);
+			linearModel = leastSquareFitStrategy.fitLinearModel(xColumn, yColumn);
 			
 			// Assert
 			Assert::AreEqual(expectedSlope, linearModel.getSlope());
@@ -63,7 +63,7 @@ namespace UnitTest
 			LeastSquaresFitStrategy leastSquareFitStrategy;
 			
 			// Act
-			leastSquareFitStrategy.fitModel(linearModel, xColumn, yColumn);
+			linearModel = leastSquareFitStrategy.fitLinearModel(xColumn, yColumn);
 
 			// Assert
 			Assert::AreEqual(expectedSlope, linearModel.getSlope());

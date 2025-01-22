@@ -20,7 +20,8 @@ using Column = ConsoleAppRansacIINamespace::Core::Column;
 namespace ConsoleAppRansacIINamespace {
 namespace Fitting {
 
-void LeastSquaresFitStrategy::fitModel(LinearModel& model, const Column& abcissa, const Column& ordinate) {
+LinearModel LeastSquaresFitStrategy::fitLinearModel(const Column& abcissa, const Column& ordinate) {
+	LinearModel model;
 	double abcissaAverage = abcissa.getAverage();
 	double ordinateAverage = ordinate.getAverage();
 
@@ -35,6 +36,7 @@ void LeastSquaresFitStrategy::fitModel(LinearModel& model, const Column& abcissa
 	}
 	model.setSlope(numerator / denominator);
 	model.setYIntercept(ordinateAverage - model.getSlope() * abcissaAverage);
+	return model;
 }
 
 } // namespace Fitting

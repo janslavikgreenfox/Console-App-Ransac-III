@@ -25,7 +25,7 @@ RANSACParameters parameters{};
 
 
 
-void RANSACFitStrategy::fitModel(LinearModel& model, const Column& abcissa, const Column& ordinate) {
+LinearModel RANSACFitStrategy::fitLinearModel(const Column& abcissa, const Column& ordinate) {
 	int iterations = 0;
 	LinearModel bestModel;
 	double bestErr = std::numeric_limits<double>::max();
@@ -36,9 +36,9 @@ void RANSACFitStrategy::fitModel(LinearModel& model, const Column& abcissa, cons
 		    getRandomIndexes(parameters.getNumberOfRandomSelectedPoints(), ordinate.getNoRows());
 		Column sampledAbcissa  = abcissa.getValuesForSpecifiedRows(randomIndexesSample);
 		Column sampledOrdinate = ordinate.getValuesForSpecifiedRows(randomIndexesSample);
-		LinearModel maybeModel;
+		//LinearModel maybeModel;
 		LeastSquaresFitStrategy maybeStrategy;
-		maybeStrategy.fitModel(maybeModel, sampledAbcissa, sampledOrdinate);
+		LinearModel maybeModel = maybeStrategy.fitLinearModel(sampledAbcissa, sampledOrdinate);
 		//maybeModel.fitModelByOrdinaryLeastSquares(sampledAbcissa, sampledOrdinate);
 
 		std::set<size_t, std::less<>> confirmedInliners;
@@ -54,9 +54,8 @@ void RANSACFitStrategy::fitModel(LinearModel& model, const Column& abcissa, cons
 			vector<size_t> inliners(confirmedInliners.begin(), confirmedInliners.end());
 			Column betterAbcissa = abcissa.getValuesForSpecifiedRows(inliners);
 			Column betterOrdinate = ordinate.getValuesForSpecifiedRows(inliners);
-			LinearModel betterModel;
 			LeastSquaresFitStrategy betterStrategy;
-			betterStrategy.fitModel(betterModel, betterAbcissa, betterOrdinate);
+			LinearModel betterModel = betterStrategy.fitLinearModel(betterAbcissa, betterOrdinate);
 			//betterModel.fitModelByOrdinaryLeastSquares(betterAbcissa, betterOrdinate);
 			double betterFit = betterModel.sumOfSquaredResiduals(betterAbcissa, betterOrdinate);
 			if (betterFit < bestErr) {
@@ -66,8 +65,7 @@ void RANSACFitStrategy::fitModel(LinearModel& model, const Column& abcissa, cons
 		}
 		iterations++;
 	}
-	//return bestModel;
-	model = bestModel;
+	return bestModel;
 }
 
 //namespace columnUtils {

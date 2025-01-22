@@ -107,11 +107,11 @@ class RANSACFitStrategy : public ILinearModelFitStrategy {
 public:
 	/**
     * @brief Fits a linear model to a set of data points using the RANSAC algorithm.
-    * @param model The linear model to fit.
     * @param abcissa The abcissa values of the data points.
     * @param ordinate The ordinate values of the data points.
+	* @return The linear model that fits the (abcissa,ordinate).
     */
-    virtual void fitModel(LinearModel& model, const Column& abcissa, const Column& ordinate) override;
+    virtual LinearModel fitLinearModel(const Column& abcissa, const Column& ordinate) override;
 
 private:
 	/**
