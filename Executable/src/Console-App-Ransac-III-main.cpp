@@ -37,6 +37,11 @@ int main(int argc, char* argv[])
 {
 	std::cout << "Ransac-III Console Application" << std::endl;
 
+	if (argc < 2)
+	{
+		std::cout << "No filename provided. Exiting..." << std::endl;
+		return -1;
+	}
 	std::string filename = std::string(argv[1]);
 
 	if (filename.empty())
