@@ -165,6 +165,7 @@
     </ClCompile>
     <ClCompile Include="TestOfColumn.cpp" />
     <ClCompile Include="TestOfLeastSquaresFitStrategy.cpp" />
+    <ClCompile Include="TestOfRANSACFitStrategy.cpp" />
     <ClCompile Include="TestOfTable.cpp" />
     <ClCompile Include="TestOfTableBuilder.cpp" />
     <ClCompile Include="TestOfTableExport.cpp" />

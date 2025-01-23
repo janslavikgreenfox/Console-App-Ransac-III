@@ -2,6 +2,8 @@
 set(TEST_SOURCES
     LongRunningTests.cpp
     TestOfColumn.cpp
+    TestOfLeastSquaresFitStrategy.cpp
+    TestOfRANSACFitStrategy.cpp
     TestOfTable.cpp
     TestOfTableBuilder.cpp
     TestOfTableExport.cpp
