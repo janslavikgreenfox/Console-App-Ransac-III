@@ -21,6 +21,7 @@
 #include "RANSACFitStrategy.h"
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 
 using CsvTableBuilder = ConsoleAppRansacIINamespace::IO::CsvTableBuilder;
 using ITableBuilder = ConsoleAppRansacIINamespace::IO::ITableBuilder;
@@ -40,14 +41,14 @@ int main(int argc, char* argv[])
 	if (argc < 2)
 	{
 		std::cout << "No filename provided. Exiting..." << std::endl;
-		return -1;
+		return EXIT_FAILURE;
 	}
 	std::string filename = std::string(argv[1]);
 
 	if (filename.empty())
 	{
 		std::cout << "No filename provided. Exiting..." << std::endl;
-		return -1;
+		return EXIT_FAILURE;
 	}
 
 	// Build TableFacade
@@ -84,5 +85,5 @@ int main(int argc, char* argv[])
 	tableFacade.exportTable();
 
 	// Exit	
-	return 0;
+	return EXIT_SUCCESS;
 }
