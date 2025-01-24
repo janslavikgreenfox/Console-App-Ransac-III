@@ -21,6 +21,7 @@
 #include "RANSACFitStrategy.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <stdlib.h>
 
 using CsvTableBuilder = ConsoleAppRansacIINamespace::IO::CsvTableBuilder;
@@ -38,20 +39,24 @@ int main(int argc, char* argv[])
 {
 	std::cout << "Ransac-III Console Application" << std::endl;
 
-	if (argc < 2)
+	if (argc != 2)
 	{
-		std::cout << "No filename provided. Exiting..." << std::endl;
+		std::cout << "Usage: Console-App-Ransac-III <filename>" << std::endl;
+		//std::cout << "No filename provided. Exiting..." << std::endl;
 		return EXIT_FAILURE;
 	}
-	std::string filename = std::string(argv[1]);
 
-	if (filename.empty())
+	std::string filename = std::string(argv[1]);
+	std::ifstream file(filename);
+	if (!file.is_open())
 	{
-		std::cout << "No filename provided. Exiting..." << std::endl;
+		std::cout << "File not found. Exiting..." << std::endl;
 		return EXIT_FAILURE;
 	}
+	file.close();
 
 	// Build TableFacade
+	std::cout << "Building Table from the File" << std::endl;
 	std::unique_ptr<ITableBuilder> tableBuilder = std::make_unique<CsvTableBuilder>(filename, 1);
 	constexpr char tableName[] = "Test Table";
 	TableFacade tableFacade{ tableName, tableBuilder };
