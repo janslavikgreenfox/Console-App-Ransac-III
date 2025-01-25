@@ -12,6 +12,7 @@
 // limitations under the License.
 
 #include "Console-App-Ransac-III-main.h"
+#include "CommandLineParser.h"
 #include "TableFacade.h"
 #include "TableBuilder.h"
 #include "TableExport.h"
@@ -24,6 +25,7 @@
 #include <fstream>
 #include <stdlib.h>
 
+using CommandLineParser = ConsoleAppRansacIINamespace::CLI::CommandLineParser;
 using CsvTableBuilder = ConsoleAppRansacIINamespace::IO::CsvTableBuilder;
 using ITableBuilder = ConsoleAppRansacIINamespace::IO::ITableBuilder;
 using TableFacade = ConsoleAppRansacIINamespace::IO::TableFacade;
@@ -39,21 +41,9 @@ int main(int argc, char* argv[])
 {
 	std::cout << "Ransac-III Console Application" << std::endl;
 
-	if (argc != 2)
-	{
-		std::cout << "Usage: Console-App-Ransac-III <filename>" << std::endl;
-		//std::cout << "No filename provided. Exiting..." << std::endl;
-		return EXIT_FAILURE;
-	}
-
-	std::string filename = std::string(argv[1]);
-	std::ifstream file(filename);
-	if (!file.is_open())
-	{
-		std::cout << "File not found. Exiting..." << std::endl;
-		return EXIT_FAILURE;
-	}
-	file.close();
+	// Parsing the command line arguments
+	CommandLineParser commandLineParser{ argc, argv };
+	std::string filename = commandLineParser.getFilename();
 
 	// Build TableFacade
 	std::cout << "Building Table from the File" << std::endl;
@@ -62,9 +52,9 @@ int main(int argc, char* argv[])
 	TableFacade tableFacade{ tableName, tableBuilder };
 
 	Column abcissa = tableFacade.getColumn(0);
-	std::vector<double> abcissaValues = abcissa.getValuesForAllRows();
 	Column ordinate = tableFacade.getColumn(1);
-
+	std::vector<double> abcissaValues = abcissa.getValuesForAllRows();
+	
 	// Least Squares Fit
 	cout << "Performing Least Squares Fit" << endl;
 	LeastSquaresFitStrategy leastSquaresFitStrategy;

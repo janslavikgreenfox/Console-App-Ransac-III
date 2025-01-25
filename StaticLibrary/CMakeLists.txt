@@ -1,6 +1,7 @@
 # library/CMakeLists.txt
 set(LIBRARY_SOURCES
     src/Column.cpp
+    src/CommandLineParser.cpp
     src/LeastSquaresFitStrategy.cpp
     src/LinearModel.cpp
     src/RANSACFitStrategy.cpp
@@ -11,6 +12,7 @@ set(LIBRARY_SOURCES
 
 set(LIBRARY_HEADERS
     include/Column.h
+    include/CommandLineParser.h
     include/Common.h
     include/ILinearModelFitStrategy.h
     include/LeastSquaresFitStrategy.h

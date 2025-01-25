@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\CommandLineParser.h" />
     <ClInclude Include="include\Common.h" />
     <ClInclude Include="include\Column.h" />
     <ClInclude Include="include\ILinearModelFitStrategy.h" />
@@ -32,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Column.cpp" />
+    <ClCompile Include="src\CommandLineParser.cpp" />
     <ClCompile Include="src\LeastSquaresFitStrategy.cpp" />
     <ClCompile Include="src\LinearModel.cpp" />
     <ClCompile Include="src\RANSACFitStrategy.cpp" />
