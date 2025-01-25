@@ -48,5 +48,20 @@ namespace UnitTest
 			Assert::AreEqual(expectedSlope, linearModel.getSlope());
 			Assert::AreEqual(expectedYIntercept, linearModel.getValueAt0());
 		}
+
+		//High Inlier Proportion :
+		//If the data contains very few outliers, RANSAC may perform unnecessarily because it is computationally expensive and may not provide better results than Least Squares.
+		//	
+		//	High Outlier Proportion :
+		//If the proportion of inliers is very low(e.g., less than 50 %), RANSAC may fail to find a good model, as it may never randomly sample a subset consisting solely of inliers.
+		//	
+		//	Ambiguous Models :
+		//If multiple models fit the data equally well(e.g., overlapping clusters or multiple valid patterns), RANSAC might select a suboptimal model due to randomness.
+		//	
+		//	Threshold Sensitivity :
+		//The choice of the inlier threshold(distance from the model to classify a point as an inlier) can dramatically affect results.A too - large threshold may classify outliers as inliers, while a too - small threshold may exclude valid inliers.
+		//	
+		//	Computational Complexity :
+		//In cases with a large dataset and complex models, RANSAC may become computationally expensive due to its iterative nature.
 	};
 }

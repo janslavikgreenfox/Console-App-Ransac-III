@@ -69,5 +69,57 @@ namespace UnitTest
 			Assert::AreEqual(expectedSlope, linearModel.getSlope());
 			Assert::AreEqual(expectedYIntercept, linearModel.getValueAt0());
 		}
+
+		/**
+		* Outlayers
+		*The least squares method is highly sensitive to outliers. 
+		 A single outlier can disproportionately affect the results 
+		 because squaring the residuals amplifies large errors.
+          Example: In a linear regression with most points forming a 
+		  straight line but one point far off the line, the model may 
+		  adjust disproportionately to fit that outlier.
+		*/
+		TEST_METHOD(Outlayer)
+		{
+			Assert::IsTrue(false);
+		}
+
+		/*Ill - Conditioned Systems :
+
+		If the matrix of predictors(in linear regression) is nearly singular
+		(e.g., due to multicollinearity or highly correlated predictors),
+			the solution may become unstable or numerically inaccurate.*/
+		TEST_METHOD(IllConditionedCase)
+		{
+			Assert::IsTrue(false);
+		}
+
+
+		/*Non - Gaussian Noise :
+
+		Least squares assumes that the errors(residuals) are normally distributed 
+			with constant variance.If the noise follows a different distribution
+		(e.g., heavy - tailed distributions like Cauchy), the method may fail 
+			to provide accurate results.*/
+		TEST_METHOD(NonGaussianNoise)
+		{
+			Assert::IsTrue(false);
+		}
+
+		/*Non - Linear Models :
+
+		Least squares works well for linear models, but in non - linear models, 
+			the solution may converge to a local minimum instead of the global minimum.*/
+
+		TEST_METHOD(NonLinearModels)
+		{
+			Assert::IsTrue(false);
+		}
+
+
+		TEST_METHOD(PerformanceTest)
+		{
+			Assert::IsTrue(false);
+		}
 	};
 }
