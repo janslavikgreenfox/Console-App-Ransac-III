@@ -12,6 +12,7 @@
 // limitations under the License.
 
 #include "Column.h"
+#include "Common.h"
 #include "Table.h"
 #include "LeastSquaresFitStrategy.h"
 #include "CppUnitTest.h"
@@ -21,6 +22,8 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using Column = ConsoleAppRansacIINamespace::Core::Column;
 using LinearModel = ConsoleAppRansacIINamespace::Core::LinearModel;
 using LeastSquaresFitStrategy = ConsoleAppRansacIINamespace::Fitting::LeastSquaresFitStrategy;
+
+
 
 namespace UnitTest
 {
@@ -71,7 +74,7 @@ namespace UnitTest
 		}
 
 		/**
-		* Outlayers
+		* Outliers
 		*The least squares method is highly sensitive to outliers. 
 		 A single outlier can disproportionately affect the results 
 		 because squaring the residuals amplifies large errors.
@@ -81,7 +84,41 @@ namespace UnitTest
 		*/
 		TEST_METHOD(Outlayer)
 		{
-			Assert::IsTrue(false);
+			// Arrange
+			std::vector<double> xPureLinearDependency
+			    { 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 };
+			Column xColumnPureLinear{ xPureLinearDependency, "Column X" };
+			// y = 2x - 1
+			std::vector<double> yPureLinearDependency
+			    { -1.0, -0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8, 1.0 };
+			Column yColumnPureLinear{ yPureLinearDependency, "Column Y" };
+
+			LeastSquaresFitStrategy leastSquareFitStrategy;
+			LinearModel fromPureLinearDepency 
+		        = leastSquareFitStrategy.fitLinearModel(xColumnPureLinear, yColumnPureLinear);
+
+			constexpr double outlierX{ 0.5 };
+			Column xWithOutlier{ xColumnPureLinear };
+			xWithOutlier.addRow(outlierX);
+
+			constexpr double outlierY{ 10 };
+			Column yWithOutlier{ yColumnPureLinear };
+			yWithOutlier.addRow(outlierY);
+
+			constexpr double expectedSlopeWithOutlier{ 2.0 };
+			constexpr double expectedYInterceptWithOutlier{ -0.16666666666666666 };
+
+			// Act
+			LinearModel withOutlier
+				= leastSquareFitStrategy.fitLinearModel(xWithOutlier, yWithOutlier);	
+
+			// Assert
+			Assert::AreEqual(expectedSlopeWithOutlier, withOutlier.getSlope());
+			Assert::IsTrue(
+				ConsoleAppRansacIINamespace::Core::doublesAreEqual(
+				    expectedYInterceptWithOutlier, withOutlier.getValueAt0()
+				)
+			);
 		}
 
 		/*Ill - Conditioned Systems :

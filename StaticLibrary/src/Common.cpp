@@ -13,29 +13,17 @@
 
 #pragma once
 
-#include<limits>
-#include <memory>
+#include "Common.h"
+
 #include <cmath>
 
 namespace ConsoleAppRansacIINamespace {
 namespace Core {
 
+bool doublesAreEqual(double a, double b) {
+	return std::fabs(a - b) < epsilon;
+};
 
-/**
-* @brief A small value used to compare floating point numbers.
-*
-* @see https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon
-*/
-constexpr double epsilon{ std::numeric_limits<double>::epsilon() };
-
-
-/**
-* @brief Compare two double values for equality.
-* @param a The first double value.
-* @param b The second double value.
-* @return True if the two values are equal, false otherwise.
-*/
-bool doublesAreEqual(double a, double b);
 
 } // namespace Core
 } // namespace ConsoleAppRansacIINamespace
