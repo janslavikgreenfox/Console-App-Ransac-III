@@ -16,6 +16,8 @@
 #include "Table.h"
 #include "LeastSquaresFitStrategy.h"
 #include "CppUnitTest.h"
+#include <random>
+#include <algorithm>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -75,14 +77,14 @@ namespace UnitTest
 
 		/**
 		* Outliers
-		*The least squares method is highly sensitive to outliers. 
-		 A single outlier can disproportionately affect the results 
-		 because squaring the residuals amplifies large errors.
-          Example: In a linear regression with most points forming a 
-		  straight line but one point far off the line, the model may 
-		  adjust disproportionately to fit that outlier.
+		* The least squares method is highly sensitive to outliers. 
+		* A single outlier can disproportionately affect the results 
+		* because squaring the residuals amplifies large errors.
+        *  Example: In a linear regression with most points forming a 
+		*  straight line but one point far off the line, the model may 
+		*  adjust disproportionately to fit that outlier.
 		*/
-		TEST_METHOD(Outlayer)
+		TEST_METHOD(Outlier)
 		{
 			// Arrange
 			std::vector<double> xPureLinearDependency
@@ -132,15 +134,67 @@ namespace UnitTest
 		}
 
 
-		/*Non - Gaussian Noise :
+		/** Non - Gaussian Noise :
+        *
+		* Least squares assumes that the errors(residuals) are normally distributed 
+		* with constant variance.If the noise follows a different distribution
+		* (e.g., heavy - tailed distributions like Cauchy), the method may fail 
+		* to provide accurate results.
+		*/
+		std::vector<double> generateCauchyNoise(int size, double location, double scale, unsigned seed)
+		{
+			//std::random_device rd;
+			std::mt19937 gen(seed);
+			std::cauchy_distribution<double> cauchy(location, scale);
+			std::vector<double> noise(size);
+			for (int i = 0; i < size; i++)
+			{
+				noise[i] = cauchy(gen);
+			}
+			return noise;
+		}
 
-		Least squares assumes that the errors(residuals) are normally distributed 
-			with constant variance.If the noise follows a different distribution
-		(e.g., heavy - tailed distributions like Cauchy), the method may fail 
-			to provide accurate results.*/
 		TEST_METHOD(NonGaussianNoise)
 		{
-			Assert::IsTrue(false);
+			// Arrange
+			std::vector<double> xPureLinearDependency
+			    { 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 };
+			Column xColumn{xPureLinearDependency, "Column X" };
+			std::vector<double>  yPureLinearDependency
+			    { -1.0, -0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8, 1.0 };
+			Column yColumn{ yPureLinearDependency, "Column Y" };
+
+			constexpr int size = 11;             // Number of noise points
+			constexpr double location = 0.0;     // Location parameter (mean)
+			constexpr double scale = 0.1;        // Scale parameter (spread)
+			constexpr unsigned seed = 42;        // Fixed seed for reproducibility
+
+			// Generate Cauchy noise
+			std::vector<double> noise = generateCauchyNoise(size, location, scale, seed);
+
+			std::vector<double> yWithNoise(yPureLinearDependency.size());
+			std::transform(
+				noise.begin(), 
+				noise.end(), 
+				yPureLinearDependency.begin(), 
+				yWithNoise.begin(),
+				[](double noise, double y) { return y + noise; }
+			);
+			Column yColumnWithNoise{ yWithNoise, "Column Y" };
+
+			// Act
+			LeastSquaresFitStrategy leastSquareFitStrategy;
+			LinearModel linearModel = leastSquareFitStrategy.fitLinearModel(xColumn, yColumnWithNoise);
+
+			// Assert
+			constexpr double expectedSlope = 1.6543486078828931;
+			Assert::IsTrue(
+				ConsoleAppRansacIINamespace::Core::doublesAreEqual(expectedSlope, linearModel.getSlope())
+			);
+			constexpr double expectedYIntercept = -0.91603394758318080;
+			Assert::IsTrue(
+				ConsoleAppRansacIINamespace::Core::doublesAreEqual(expectedYIntercept, linearModel.getValueAt0())
+			);
 		}
 
 		/*Non - Linear Models :
