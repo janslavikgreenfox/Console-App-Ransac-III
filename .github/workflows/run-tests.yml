@@ -2,11 +2,11 @@ name: Build and Run C++ Unit Tests
 
 on:
   push:
-    branches:
-      - main # Adjust based on your workflow
+    branches: ["master"]
+      #- main # Adjust based on your workflow
   pull_request:
-    branches:
-      - main
+    branches: ["master"]
+      #- main
 
 jobs:
   build-and-test:
