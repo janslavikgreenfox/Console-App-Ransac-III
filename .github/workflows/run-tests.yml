@@ -34,5 +34,6 @@ jobs:
         cd x64\Debug\ # Adjust to the location of the built executable
         #"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\TestPlatform\vstest.console.exe" 
         #.\YourTestExecutable.exe
-        "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\TestPlatform\vstest.console.exe" UnitTest/x64/Debug/UnitTest.dll
+        "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\TestPlatform\vstest.console.exe" UnitTest.dll 
+        #UnitTest/x64/Debug/UnitTest.dll
 
