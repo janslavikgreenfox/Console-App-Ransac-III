@@ -1,0 +1,38 @@
+name: Build and Run C++ Unit Tests
+
+on:
+  push:
+    branches: ["master"]
+      #- main # Adjust based on your workflow
+  pull_request:
+    branches: ["master"]
+      #- main
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest # Use Windows for Visual Studio compatibility
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Visual Studio environment
+    - name: Set up Visual Studio
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64 # Architecture for your build
+
+    # Step 3: Build the solution
+    - name: Build the solution
+      run: |
+        msbuild Console-App-Ransac-III.sln /p:Configuration=Debug /p:Platform=x64
+
+    # Step 4: Run the unit tests
+    - name: Run unit tests
+      run: |
+        cd x64\Debug\ # Adjust to the location of the built executable
+        #"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\TestPlatform\vstest.console.exe" 
+        #.\YourTestExecutable.exe
+        "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\TestPlatform\vstest.console.exe" ./UnitTest/x64/Debug/UnitTest.dll
+
