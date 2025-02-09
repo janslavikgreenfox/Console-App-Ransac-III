@@ -127,10 +127,69 @@ namespace UnitTest
 
 		If the matrix of predictors(in linear regression) is nearly singular
 		(e.g., due to multicollinearity or highly correlated predictors),
-			the solution may become unstable or numerically inaccurate.*/
+			the solution may become unstable or numerically inaccurate.
+		
+		    (x1, y1) = (1,      2.0); 
+		    (x2, y2) = (1.0001, 2.0001);
+			
+			Leads to the matrix A = [1    1   ]
+			                        [1  1.0001]
+			
+			and the left side   b = [  2   ]
+			                        [2.0001]
+
+			A is almost singular, to solve the equation  A * [y-intercept slope]' = b 
+
+		*/
+
 		TEST_METHOD(IllConditionedCase)
 		{
-			Assert::IsTrue(false);
+            // Arrange
+			// First case 
+			std::vector<double> xFirstCase{ 1.0, 1.0001 };
+			Column xColumnFirstCase{ xFirstCase, "Column X" };
+			std::vector<double> yFirstCase{ 2.0, 2.0001 };
+			Column yColumnFirstCase{ yFirstCase, "Column Y" };
+			constexpr double expectedSlopeFirstCase{ +1.0000000000022204 }; // approx. +1.0
+			constexpr double expectedYInterceptFirstCase{ +0.99999999999777955 }; // approx +1.0
+
+			// Second case = first case, except that y2 = 2.0001 replaced by y2 = 2.0 (smaller by 0.0001, very small perturbation)
+			std::vector<double> xSecondCase{ 1.0, 1.0001 };
+			Column xColumnSecondCase{ xSecondCase, "Column X" };
+			std::vector<double> ySecondCase{ 2.0, 2.0 };
+			Column yColumnSecondCase{ ySecondCase, "Column Y" };
+			constexpr double expectedSlopeSecondCase{ +0.0 }; // approx. +2.0 = slope has doubled 
+			constexpr double expectedYInterceptSecondCase{ +2.0 }; // approx +0.0 = y intercept dropped from 1.0 to 0.0
+
+			LeastSquaresFitStrategy leastSquareFitStrategy;
+
+			// Act
+			LinearModel firstCase
+				= leastSquareFitStrategy.fitLinearModel(xColumnFirstCase, yColumnFirstCase);
+			LinearModel secondCase
+				= leastSquareFitStrategy.fitLinearModel(xColumnSecondCase, yColumnSecondCase);
+			
+			// Assert
+			Assert::IsTrue(
+				ConsoleAppRansacIINamespace::Core::doublesAreEqual(
+					expectedSlopeFirstCase, firstCase.getSlope()
+				)
+			);
+			Assert::IsTrue(
+				ConsoleAppRansacIINamespace::Core::doublesAreEqual(
+					expectedYInterceptFirstCase, firstCase.getValueAt0()
+				)
+			);
+			Assert::IsTrue(
+				ConsoleAppRansacIINamespace::Core::doublesAreEqual(
+					expectedSlopeSecondCase, secondCase.getSlope()
+				)
+			);
+			Assert::IsTrue(
+				ConsoleAppRansacIINamespace::Core::doublesAreEqual(
+					expectedYInterceptSecondCase, secondCase.getValueAt0()
+				)
+			);		
 		}
 
 
