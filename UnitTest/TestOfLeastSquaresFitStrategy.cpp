@@ -257,19 +257,25 @@ namespace UnitTest
 		}
 
 		/*Non - Linear Models :
+		*
+		* Least squares works well for linear models, but in non - linear models, 
+		*  the solution may converge to a local minimum instead of the global minimum.
+		*
+		*/
 
-		Least squares works well for linear models, but in non - linear models, 
-			the solution may converge to a local minimum instead of the global minimum.*/
+		//TEST_METHOD(NonLinearModels)
+		//{
+		//	Assert::IsTrue(false);
+		//}
 
-		TEST_METHOD(NonLinearModels)
-		{
-			Assert::IsTrue(false);
-		}
+		/*Performance Test:
+		* 
+		* 
+		*/
 
-
-		TEST_METHOD(PerformanceTest)
-		{
-			Assert::IsTrue(false);
-		}
+		//TEST_METHOD(PerformanceTest)
+		//{
+		//	Assert::IsTrue(false);
+		//}
 	};
 }

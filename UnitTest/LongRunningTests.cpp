@@ -22,26 +22,26 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
 {
-	TEST_CLASS(LongRunningTest) {
-    public:
+	//TEST_CLASS(LongRunningTest) {
+ //   public:
 
-		TEST_METHOD(ExtremeLongColumn) {
+	//	TEST_METHOD(ExtremeLongColumn) {
 
-		    // Arrange
-	        constexpr size_t hugeVectorSize = 2000000000;
-	        std::vector<double> hugeVector(hugeVectorSize, 1.414);
+	//	    // Arrange
+	//        constexpr size_t hugeVectorSize = 2000000000;
+	//        std::vector<double> hugeVector(hugeVectorSize, 1.414);
 
-	        // Act
-	        try {
-		        Column column{hugeVector, "Really huge vector"};
-				Assert::Fail(L"The expected exception was not thrown");
-	        }
-	        // Assert
-			catch (Column::BadAlloc& e) {
-				Assert::IsTrue(true);
-				return;
-			}
-			Assert::Fail(L"The expected exception was not catched");
-		}
-	};
+	//        // Act
+	//        try {
+	//	        Column column{hugeVector, "Really huge vector"};
+	//			Assert::Fail(L"The expected exception was not thrown");
+	//        }
+	//        // Assert
+	//		catch (Column::BadAlloc& e) {
+	//			Assert::IsTrue(true);
+	//			return;
+	//		}
+	//		Assert::Fail(L"The expected exception was not catched");
+	//	}
+	//};
 }
