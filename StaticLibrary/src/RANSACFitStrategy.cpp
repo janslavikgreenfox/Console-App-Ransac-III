@@ -32,28 +32,28 @@ LinearModel RANSACFitStrategy::fitLinearModel(const Column& abcissa, const Colum
 
 	while (iterations < parameters.getNumberOfIterations()) {
 		vector<size_t> randomIndexesSample = 
-			//ConsoleAppRansacIINamespace::Core::getRandomIndexes(parameters.getNumberOfRandomSelectedPoints(), ordinate.getNoRows());
-		    getRandomIndexes(parameters.getNumberOfRandomSelectedPoints(), ordinate.getNoRows());
-		Column sampledAbcissa  = abcissa.getValuesForSpecifiedRows(randomIndexesSample);
-		Column sampledOrdinate = ordinate.getValuesForSpecifiedRows(randomIndexesSample);
+			//ConsoleAppRansacIINamespace::Core::getRandomIndexes(parameters.getNumberOfRandomSelectedPoints(), ordinate.getNoOfRows());
+		    getRandomIndexes(parameters.getNumberOfRandomSelectedPoints(), ordinate.getNoOfRows());
+		Column sampledAbcissa  = abcissa.getSpecifiedRows(randomIndexesSample);
+		Column sampledOrdinate = ordinate.getSpecifiedRows(randomIndexesSample);
 		//LinearModel maybeModel;
 		LeastSquaresFitStrategy maybeStrategy;
 		LinearModel maybeModel = maybeStrategy.fitLinearModel(sampledAbcissa, sampledOrdinate);
 		//maybeModel.fitModelByOrdinaryLeastSquares(sampledAbcissa, sampledOrdinate);
 
 		std::set<size_t, std::less<>> confirmedInliners;
-		for (size_t i = 0; i < abcissa.getNoRows(); i++) {
-			double modelValueX = abcissa.getValueForOneSpecifiedRow(i);
+		for (size_t i = 0; i < abcissa.getNoOfRows(); i++) {
+			double modelValueX = abcissa.getOneRow(i);
 			double modelValueY = maybeModel.getValueAt(modelValueX);
-			double Y = ordinate.getValueForOneSpecifiedRow(i);
+			double Y = ordinate.getOneRow(i);
 			if (abs(modelValueY - Y) < parameters.getTresholdValueToBeInlier()) {
 				confirmedInliners.insert(i);
 			}
 		}
 		if (confirmedInliners.size() >= parameters.getNumberOfInliersToWellFit()) {
 			vector<size_t> inliners(confirmedInliners.begin(), confirmedInliners.end());
-			Column betterAbcissa = abcissa.getValuesForSpecifiedRows(inliners);
-			Column betterOrdinate = ordinate.getValuesForSpecifiedRows(inliners);
+			Column betterAbcissa = abcissa.getSpecifiedRows(inliners);
+			Column betterOrdinate = ordinate.getSpecifiedRows(inliners);
 			LeastSquaresFitStrategy betterStrategy;
 			LinearModel betterModel = betterStrategy.fitLinearModel(betterAbcissa, betterOrdinate);
 			//betterModel.fitModelByOrdinaryLeastSquares(betterAbcissa, betterOrdinate);

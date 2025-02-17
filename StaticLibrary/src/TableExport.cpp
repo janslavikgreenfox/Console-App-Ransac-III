@@ -35,7 +35,7 @@ void TableExportToCsvBase::generateCsvString() {
 	_csvString += "\n";
 
 	// Table data
-	size_t currentNumberOfRows = _pTable->getColumn(0).getNoRows();
+	size_t currentNumberOfRows = _pTable->getColumn(0).getNoOfRows();
 	size_t currentNumberOfColumns = _pTable->getNoOfColumns();
 	for (size_t rowIndex = 0; rowIndex < currentNumberOfRows; rowIndex++) {
 		for (size_t columnIndex = 0; columnIndex < currentNumberOfColumns; columnIndex++) {
@@ -58,7 +58,7 @@ std::string TableExport::ExportToCsvString(const Table& table, const char delimi
 	csvOutput += "\n";
 
 	// Table data
-	size_t currentNumberOfRows = table.getColumn(0).getNoRows();
+	size_t currentNumberOfRows = table.getColumn(0).getNoOfRows();
 	size_t currentNumberOfColumns = table.getNoOfColumns();
 	for (size_t rowIndex = 0; rowIndex < currentNumberOfRows; rowIndex++) {
 		for (size_t columnIndex = 0; columnIndex < currentNumberOfColumns; columnIndex++) {

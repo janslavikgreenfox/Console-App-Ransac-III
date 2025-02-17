@@ -24,7 +24,7 @@ namespace Core {
 size_t Table::getCommonNoOfRows() const {
 	size_t result{ 0 };
 	for (auto& item : _tableColumns) {
-		size_t itemNoOfRows = item.getNoRows();
+		size_t itemNoOfRows = item.getNoOfRows();
 		if (itemNoOfRows > result) {
 			result = itemNoOfRows;
 		}
@@ -37,7 +37,7 @@ void Table::appendColumn(const Column& column) {
 	Column columnToBeAdded = column;
 	if (_noOfColumns != 0) {
 		size_t noOfCommonRows = getCommonNoOfRows();
-		size_t newColumnNoOfRows = column.getNoRows();
+		size_t newColumnNoOfRows = column.getNoOfRows();
 		if (noOfCommonRows > newColumnNoOfRows) {
 			for (size_t index = newColumnNoOfRows; index < noOfCommonRows; index++) {
 				columnToBeAdded.addRow(defaultValueToFillEmptyRow);
@@ -81,7 +81,7 @@ double Table::getCellValue(size_t cellRowIndex, size_t cellColumnIndex) const {
 	}
 	else
 	{
-		return _tableColumns[cellColumnIndex].getValueForOneSpecifiedRow(cellRowIndex);
+		return _tableColumns[cellColumnIndex].getOneRow(cellRowIndex);
 	}
 }
 

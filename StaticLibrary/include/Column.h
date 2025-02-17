@@ -90,8 +90,9 @@ class Column
 
 	/**
 	* @brief Get number of rows in the column
+	* @return Number of the column rows
 	*/
-	size_t getNoRows() const;
+	size_t getNoOfRows() const;
 
 	/**
 	* @brief Get the column header
@@ -103,21 +104,21 @@ class Column
 	* @brief Get all rows from the Column
 	* @return A vector of all the values in the column
 	*/
-	std::vector<double> getValuesForAllRows() const;
+	std::vector<double> getAllRows() const;
 
 	/**
 	* @brief Get the value at a specified row index
 	* @param specifiedRowIndex The index of the row to get the value from
 	* @return The value at the specified row index
 	*/
-	double getValueForOneSpecifiedRow(const size_t& specifiedRowIndex) const;
+	double getOneRow(const size_t& specifiedRowIndex) const;
 
 	/**
 	* @brief Get the values at specified row indexes
 	* @param specifiedRowIndexes A vector of picked indexes of the rows to get the values from
 	* @return A vector of the values at the specified row indexed
 	*/
-	Column getValuesForSpecifiedRows(const std::vector<size_t>& specifiedRowIndexes) const;
+	Column getSpecifiedRows(const std::vector<size_t>& specifiedRowIndexes) const;
 
 	/**
 	* @brief Get the average of the values in the column

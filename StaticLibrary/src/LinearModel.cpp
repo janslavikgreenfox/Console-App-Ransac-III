@@ -54,11 +54,11 @@ vector<double> LinearModel::getMultipleValuesAt(const vector<double>& abcisses) 
 
 double LinearModel::sumOfSquaredResiduals(const Column& abcissa, const Column& ordinate) {
 	double cummulativeSquare = 0;
-	for (size_t sharedIndex = 0; sharedIndex < abcissa.getNoRows(); sharedIndex++) {
+	for (size_t sharedIndex = 0; sharedIndex < abcissa.getNoOfRows(); sharedIndex++) {
 		vector<double> modelValueX;
-		modelValueX.push_back(abcissa.getValueForOneSpecifiedRow(sharedIndex));
+		modelValueX.push_back(abcissa.getOneRow(sharedIndex));
 		vector<double> modelValueY = this->getMultipleValuesAt(modelValueX);
-		double Y = ordinate.getValueForOneSpecifiedRow(sharedIndex);
+		double Y = ordinate.getOneRow(sharedIndex);
 		cummulativeSquare += (modelValueY.at(0) - Y) * (modelValueY.at(0) - Y);
 	}
 	return cummulativeSquare;

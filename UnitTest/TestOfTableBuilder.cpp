@@ -74,14 +74,14 @@ namespace UnitTest
 			//}
 
 			Column actualColumn = table->getColumn(0);
-			size_t actualNoOfRows = actualColumn.getNoRows();
+			size_t actualNoOfRows = actualColumn.getNoOfRows();
 			size_t expectedNoOfRows = 3;
 			Assert::AreEqual(expectedNoOfRows, actualNoOfRows);
 			//if (expectedNoOfRows != actualNoOfRows) {
 			//	return CTestResult::Failure;
 			//}
 
-			std::vector<double> actualColumnValues = actualColumn.getValuesForAllRows();
+			std::vector<double> actualColumnValues = actualColumn.getAllRows();
 			for (size_t index = 0; index < actualNoOfRows; index++) {
 				Assert::AreEqual(simpleColumn.at(index), actualColumnValues.at(index));
 				//if ( simpleColumn.at(index) != actualColumnValues.at(index)) {

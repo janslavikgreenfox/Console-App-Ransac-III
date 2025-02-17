@@ -71,7 +71,7 @@ std::vector<double> Column::getValuesAtSelectedIndexes(const std::vector<size_t>
 	return result;
 }
 
-size_t Column::getNoRows() const { 
+size_t Column::getNoOfRows() const { 
 	return _noRows; 
 }
 
@@ -79,18 +79,18 @@ std::string Column::getHeader() const {
 	return _colHeader; 
 }
 
-std::vector<double> Column::getValuesForAllRows() const { 
+std::vector<double> Column::getAllRows() const { 
 	return _colValues;	
 }
 
 
-double Column::getValueForOneSpecifiedRow(const size_t& specifiedRowIndex) const {
+double Column::getOneRow(const size_t& specifiedRowIndex) const {
 	std::vector<size_t> selectedIndexes{ specifiedRowIndex };
 	return getValuesAtSelectedIndexes(selectedIndexes)[0];
 };
 
 
-Column Column::getValuesForSpecifiedRows(const std::vector<size_t>& specifiedRowIndexes) const {
+Column Column::getSpecifiedRows(const std::vector<size_t>& specifiedRowIndexes) const {
 	std::vector<double> resultValues{ getValuesAtSelectedIndexes(specifiedRowIndexes) };
 	std::string selectedPostfix{"- selected"};
 	std::string resultHeader = getHeader().append(selectedPostfix);

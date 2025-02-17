@@ -42,9 +42,9 @@ namespace UnitTest
 			Column emptyColumn{ input, emptyColumnName };
 
 			// Act
-			size_t actualNoOfColumns = emptyColumn.getNoRows();
+			size_t actualNoOfColumns = emptyColumn.getNoOfRows();
 			std::string emptyColumnHeader = emptyColumn.getHeader();
-			std::vector<double> emptyColumnValues = emptyColumn.getValuesForAllRows();
+			std::vector<double> emptyColumnValues = emptyColumn.getAllRows();
 			double averageOfEmptyColumn = emptyColumn.getAverage();
 
 			// Assert
@@ -57,7 +57,7 @@ namespace UnitTest
 			Assert::AreEqual(expectedMeanOfEmptyColumn, averageOfEmptyColumn);
 
 			//try {
-			//	double oneValueFromEmptyColumn = emptyColumn.getValueForOneSpecifiedRow(0);
+			//	double oneValueFromEmptyColumn = emptyColumn.getOneRow(0);
 			//}
 			//catch (const Column::RowIndexOutOfBounds& e) {
 			//	std::cout << e.what();
@@ -69,7 +69,7 @@ namespace UnitTest
 
 			//try {
 			//	Column groupOfValuesFromEmptyColumn
-			//		= emptyColumn.getValuesForSpecifiedRows(std::vector<size_t>{0, 1});
+			//		= emptyColumn.getSpecifiedRows(std::vector<size_t>{0, 1});
 			//}
 			//catch (const Column::RowIndexOutOfBounds& e) {
 			//	std::cout << e.what();
@@ -91,10 +91,10 @@ namespace UnitTest
 			Column column{ input, inputColumnName };
 			
 			//// Act 
-			size_t actualNoOfColumns = column.getNoRows();
+			size_t actualNoOfColumns = column.getNoOfRows();
 			std::string actualColumnName = column.getHeader();
-			double secondItem = column.getValueForOneSpecifiedRow(1);
-			std::vector<double> allRows = column.getValuesForAllRows();
+			double secondItem = column.getOneRow(1);
+			std::vector<double> allRows = column.getAllRows();
 			double average = column.getAverage();
 			
 			// Assert

@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 
 	Column abcissa = tableFacade.getColumn(0);
 	Column ordinate = tableFacade.getColumn(1);
-	std::vector<double> abcissaValues = abcissa.getValuesForAllRows();
+	std::vector<double> abcissaValues = abcissa.getAllRows();
 	
 	// Least Squares Fit
 	cout << "Performing Least Squares Fit" << endl;

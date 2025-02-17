@@ -27,10 +27,10 @@ LinearModel LeastSquaresFitStrategy::fitLinearModel(const Column& abcissa, const
 
 	double numerator = 0;
 	double denominator = 0;
-	size_t sharedNumberOfRows = abcissa.getNoRows();
+	size_t sharedNumberOfRows = abcissa.getNoOfRows();
 	for (size_t sharedIndex = 0; sharedIndex < sharedNumberOfRows; sharedIndex++) {
-		double abcissaCentralMoment = abcissa.getValueForOneSpecifiedRow(sharedIndex) - abcissaAverage;
-		double ordinateCentralMoment = ordinate.getValueForOneSpecifiedRow(sharedIndex) - ordinateAverage;
+		double abcissaCentralMoment = abcissa.getOneRow(sharedIndex) - abcissaAverage;
+		double ordinateCentralMoment = ordinate.getOneRow(sharedIndex) - ordinateAverage;
 		numerator += abcissaCentralMoment * ordinateCentralMoment;
 		denominator += abcissaCentralMoment * abcissaCentralMoment;
 	}

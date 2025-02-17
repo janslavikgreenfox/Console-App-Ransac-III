@@ -98,9 +98,9 @@ namespace UnitTest
 
 			for (size_t columnIndex = 0; columnIndex < actualNoOfColumns; columnIndex++) {
 				Column currentColumn = testTable.getColumn(columnIndex);
-				size_t currentNoOfRows = currentColumn.getNoRows();
+				size_t currentNoOfRows = currentColumn.getNoOfRows();
 				for (size_t rowIndex = 0; rowIndex < currentNoOfRows; rowIndex++) {
-					double actualValue = currentColumn.getValueForOneSpecifiedRow(rowIndex);
+					double actualValue = currentColumn.getOneRow(rowIndex);
 					double expectedValue = columnIndex == 0 ? shortVectorOne.at(rowIndex) : shortVectorTwo.at(rowIndex);
 					Assert::AreEqual(expectedValue, actualValue);
 				}
@@ -117,7 +117,7 @@ namespace UnitTest
 
 			// Assert
 			Column shortColumnFromTable = testTable.getColumn(0);
-			std::vector<double> shortColumnRowsFromTable = shortColumnFromTable.getValuesForAllRows();
+			std::vector<double> shortColumnRowsFromTable = shortColumnFromTable.getAllRows();
 			std::vector<double> expectedResult{ 0, 1.1, 2.2, 0, 0 };
 			bool isColumnAsExpected = std::equal(
 				expectedResult.begin(), expectedResult.end(),
@@ -136,7 +136,7 @@ namespace UnitTest
 
 			// Assert
 			Column shortColumnFromTable = testTable.getColumn(1);
-			std::vector<double> shortColumnRowsFromTable = shortColumnFromTable.getValuesForAllRows();
+			std::vector<double> shortColumnRowsFromTable = shortColumnFromTable.getAllRows();
 			std::vector<double> expectedResult{ 0, 1.1, 2.2, 0, 0 };
 			bool isColumnAsExpected = std::equal(
 				expectedResult.begin(), expectedResult.end(),
@@ -167,10 +167,10 @@ namespace UnitTest
 
 			// Act
 			Column firstColumnFromTable = testTable.getColumn(0);
-			std::vector<double> actualVectorFromFirstColumn = firstColumnFromTable.getValuesForAllRows();
+			std::vector<double> actualVectorFromFirstColumn = firstColumnFromTable.getAllRows();
 
 			Column secondColumnFromTable = testTable.getColumn(1);
-			std::vector<double> actualVectorFromSecondColumn = secondColumnFromTable.getValuesForAllRows();
+			std::vector<double> actualVectorFromSecondColumn = secondColumnFromTable.getAllRows();
 
 			// Assert
 			bool isFirstColumnEqual = std::equal(
@@ -199,7 +199,7 @@ namespace UnitTest
 			double actualValue = testTable.getCellValue(rowIndex, columnIndex);
 
 			// Assert
-			double expectedValue = shortColumnOne.getValueForOneSpecifiedRow(rowIndex);
+			double expectedValue = shortColumnOne.getOneRow(rowIndex);
 			Assert::AreEqual(expectedValue, actualValue);
 		}
 
