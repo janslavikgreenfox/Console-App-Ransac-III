@@ -48,7 +48,7 @@
     <ClInclude Include="include\CommandLineParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IColumn.h">
+    <ClInclude Include="include\IColumn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

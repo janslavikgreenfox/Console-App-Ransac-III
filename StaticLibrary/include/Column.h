@@ -14,14 +14,14 @@
 #pragma once
 
 #include "Common.h"
+#include "IColumn.h"
+
 #include <vector>
 #include <string>
 #include <stdexcept>
 
 namespace ConsoleAppRansacIINamespace {
 namespace Core {
-
-
 
 /**
 * @class Column
@@ -43,7 +43,7 @@ namespace Core {
 * - Exception handling for bad memory allocation.
 *
 */
-class Column 
+class Column : public IColumn
 {  
   public:
 	/**
@@ -86,32 +86,32 @@ class Column
 	* @brief Add a row to the column values
 	* @param value The double value to be added as a new row
 	*/
-	void addRow(const double value);
+	virtual void addRow(const double value) override;
 
 	/**
 	* @brief Get number of rows in the column
 	* @return Number of the column rows
 	*/
-	size_t getNoOfRows() const;
+	virtual size_t getNoOfRows() const override;
 
 	/**
 	* @brief Get the column header
 	* @return The header of the column
 	*/
-	std::string getHeader() const;
+	virtual std::string getHeader() const override;
 
 	/**
 	* @brief Get all rows from the Column
 	* @return A vector of all the values in the column
 	*/
-	std::vector<double> getAllRows() const;
+	virtual std::vector<double> getAllRows() const override;
 
 	/**
 	* @brief Get the value at a specified row index
 	* @param specifiedRowIndex The index of the row to get the value from
 	* @return The value at the specified row index
 	*/
-	double getOneRow(const size_t& specifiedRowIndex) const;
+	virtual double getOneRow(const size_t& specifiedRowIndex) const override;
 
 	/**
 	* @brief Get the values at specified row indexes
@@ -124,7 +124,7 @@ class Column
 	* @brief Get the average of the values in the column
 	* @return The average of the values in the column
 	*/
-	double getAverage() const;
+	virtual double getAverage() const override;
 
 	/**
 	* @brief Output the column to an output stream

@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IColumn.h" />
     <ClInclude Include="include\CommandLineParser.h" />
     <ClInclude Include="include\Common.h" />
     <ClInclude Include="include\Column.h" />
+    <ClInclude Include="include\IColumn.h" />
     <ClInclude Include="include\ILinearModelFitStrategy.h" />
     <ClInclude Include="include\LeastSquaresFitStrategy.h" />
     <ClInclude Include="include\LinearModel.h" />
