@@ -51,6 +51,9 @@
     <ClInclude Include="include\IColumn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ITable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Column.cpp">

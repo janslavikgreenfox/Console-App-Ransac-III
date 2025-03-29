@@ -14,6 +14,7 @@
 #pragma once
 
 #include "Column.h"
+#include "ITable.h"
 #include <iostream>
 #include <string>
 
@@ -39,7 +40,7 @@ namespace Core {
 * - Exception handling for bad memory allocation.
 * 
 */
-class Table {
+class Table : public ITable {
   public:
 	/**
 	* @brief Constructor for the Table class.
@@ -81,32 +82,32 @@ class Table {
 	* @brief Get name of the table.
 	* @return The name of the table.
 	*/
-	std::string getName() const { return _name; }
+	virtual std::string getName() const override { return _name; }
 
 	/**
 	* @brief Get the number of columns in the table.
 	* @return The number of columns in the table.
 	*/
-	size_t getNoOfColumns() const { return _noOfColumns; }
+	virtual size_t getNoOfColumns() const override { return _noOfColumns; }
 
 	/**
 	* @brief Get the common number of rows in all columns.
 	* @return The common number of rows in all columns.
 	*/
-	size_t getCommonNoOfRows() const;
+	virtual size_t getCommonNoOfRows() const override;
 
 	/**
 	* @brief Add a column to the table.
 	* @param column The column to be added to the table.
 	*/
-	void appendColumn(const Column & column);
+	virtual void appendColumn(const Column & column) override;
 
 	/**
 	* @brief Get the column of the specified index from the table.
 	* @param index The index of the column to get.
 	* @return The column of the specified index.
 	*/
-	Column getColumn(size_t index) const;
+	virtual Column getColumn(size_t index) const override;
 
 	/**
 	* @brief Get the value of the cell at the specified row and column indexes.
@@ -114,7 +115,7 @@ class Table {
 	* @param cellColumnIndex The column index of the cell.
 	* @return The value of the cell at the specified row and column indexes.
 	*/
-	double getCellValue(size_t cellRowIndex, size_t cellColumnIndex) const;
+	virtual double getCellValue(size_t cellRowIndex, size_t cellColumnIndex) const override;
 	
 	/**
 	* @brief Output the table to an output stream.

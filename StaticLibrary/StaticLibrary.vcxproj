@@ -24,6 +24,7 @@
     <ClInclude Include="include\Column.h" />
     <ClInclude Include="include\IColumn.h" />
     <ClInclude Include="include\ILinearModelFitStrategy.h" />
+    <ClInclude Include="include\ITable.h" />
     <ClInclude Include="include\LeastSquaresFitStrategy.h" />
     <ClInclude Include="include\LinearModel.h" />
     <ClInclude Include="include\RANSACFitStrategy.h" />
