@@ -48,6 +48,9 @@
     <ClInclude Include="include\CommandLineParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IColumn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Column.cpp">

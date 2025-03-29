@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IColumn.h" />
     <ClInclude Include="include\CommandLineParser.h" />
     <ClInclude Include="include\Common.h" />
     <ClInclude Include="include\Column.h" />
