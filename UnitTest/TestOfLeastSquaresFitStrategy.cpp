@@ -263,10 +263,35 @@ namespace UnitTest
 		*
 		*/
 
-		//TEST_METHOD(NonLinearModels)
-		//{
-		//	Assert::IsTrue(false);
-		//}
+		TEST_METHOD(NonLinearModels)
+		{
+			// Arrange
+			std::vector<double> xFirstCase{ 0.0, 1.0, 2.0 };
+			Column xColumnFirstCase{ xFirstCase, "Column X" };
+			std::vector<double> yFirstCase(xFirstCase.size());
+			std::transform(
+				xFirstCase.cbegin(),
+				xFirstCase.cend(),
+				yFirstCase.begin(),
+				[](double x) {return (1.0 + x * x); }
+			);
+			Column yColumnFirstCase{ yFirstCase, "Column Y" };
+
+			// Act
+			LeastSquaresFitStrategy leastSquareFitStrategy;
+			LinearModel linearModel
+				= leastSquareFitStrategy.fitLinearModel(xColumnFirstCase, yColumnFirstCase);
+
+			// Assert
+			constexpr double expectedYIntercept{ 0.66666666666666696 };
+			constexpr double expectedSlope{ 2.0 };
+			Assert::IsTrue(
+				ConsoleAppRansacIINamespace::Core::doublesAreEqual(expectedYIntercept, linearModel.getValueAt0())
+			);
+			Assert::IsTrue(
+				ConsoleAppRansacIINamespace::Core::doublesAreEqual(expectedSlope, linearModel.getSlope())
+			);
+		}
 
 		/*Performance Test:
 		* 
