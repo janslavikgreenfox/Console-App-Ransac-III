@@ -20,8 +20,8 @@
 namespace ConsoleAppRansacIINamespace {
 namespace Core {
 
-bool doublesAreEqual(double a, double b) {
-	return std::fabs(a - b) < epsilon;
+bool doublesAreEqual(double a, double b, double tolerance) {
+	return std::fabs(a - b) < tolerance;
 };
 
 

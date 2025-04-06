@@ -84,7 +84,7 @@ namespace UnitTest
 		*  straight line but one point far off the line, the model may 
 		*  adjust disproportionately to fit that outlier.
 		*/
-		TEST_METHOD(Outlier)
+		TEST_METHOD(OneOutlier)
 		{
 			// Arrange
 			std::vector<double> xPureLinearDependency

@@ -33,9 +33,10 @@ constexpr double epsilon{ std::numeric_limits<double>::epsilon() };
 * @brief Compare two double values for equality.
 * @param a The first double value.
 * @param b The second double value.
-* @return True if the two values are equal, false otherwise.
+* @param tolerance The tolerance on which is the difference compared with 
+* @return True if the two values don't differ less than tolerance, false otherwise.
 */
-bool doublesAreEqual(double a, double b);
+bool doublesAreEqual(double a, double b, double tolerance = epsilon);
 
 } // namespace Core
 } // namespace ConsoleAppRansacIINamespace
