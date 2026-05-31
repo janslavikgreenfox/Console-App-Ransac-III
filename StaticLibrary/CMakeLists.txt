@@ -1,5 +1,6 @@
 # library/CMakeLists.txt
 set(LIBRARY_SOURCES
+    src/Common.cpp
     src/Column.cpp
     src/CommandLineParser.cpp
     src/LeastSquaresFitStrategy.cpp

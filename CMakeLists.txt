@@ -10,7 +10,10 @@ set(CMAKE_CXX_STANDARD 17)  # Or 20 if your project uses C++20 features
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Add unit testing capability
+enable_testing()
+
 # Add subdirectories for projects
 add_subdirectory(StaticLibrary)
 add_subdirectory(Executable)
-#add_subdirectory(UnitTest)
+add_subdirectory(tests)

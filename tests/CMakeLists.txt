@@ -1,5 +1,6 @@
 # Define source files for the test project
 set(TEST_SOURCES
+    #pch.cpp
     LongRunningTests.cpp
     TestOfColumn.cpp
     TestOfLeastSquaresFitStrategy.cpp
@@ -9,16 +10,22 @@ set(TEST_SOURCES
     TestOfTableExport.cpp
 )
 
-# Define the test executable
-add_executable(UnitTests ${TEST_SOURCES})
 
-# Include directories
-#target_include_directories(UnitTests PRIVATE .)
 
-# Link the test executable with required libraries
-target_link_libraries(UnitTests PRIVATE MyLibrary)
+# set(TEST_SOURCES
+#     minimal.cpp
+# )
 
-# Ensure the correct subsystem is used for a console application
-set_target_properties(UnitTests PROPERTIES
-    VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+add_executable(tests ${TEST_SOURCES})
+
+find_package(GTest CONFIG REQUIRED)
+
+target_link_libraries(tests
+    PRIVATE
+        MyLibrary
+        GTest::gtest
+        GTest::gtest_main
 )
+
+include(GoogleTest)
+gtest_discover_tests(tests)

@@ -14,8 +14,7 @@
 #include "Common.h"
 #include "Column.h"
 #include "Table.h"
-#include "CppUnitTest.h"
-
+#include <gtest/gtest.h>
 #include <cassert>
 #include <iostream>
 #include <limits>
@@ -23,187 +22,175 @@
 using Column = ConsoleAppRansacIINamespace::Core::Column;
 using Table = ConsoleAppRansacIINamespace::Core::Table;
 
+namespace {
+	std::vector<double> shortVectorOne{ 0, 1.1, 2.2 };
+	Column shortColumnOne{ shortVectorOne, "First vector" };
+	std::vector<double> shortVectorTwo{ 3.14, 1.414, 2.718 };
+	Column shortColumnTwo{ shortVectorTwo, "Second vector" };
+	std::vector<double> longVector{ 0, 0.1, 0.2, 0.3, 0.4 };
+	Column longColumn{ longVector, "Long Vector" };
+}
 
-std::vector<double> shortVectorOne{ 0, 1.1, 2.2 };
-Column shortColumnOne{ shortVectorOne, "First vector" };
-std::vector<double> shortVectorTwo{ 3.14, 1.414, 2.718 };
-Column shortColumnTwo{ shortVectorTwo, "Second vector" };
-std::vector<double> longVector{ 0, 0.1, 0.2, 0.3, 0.4 };
-Column longColumn{ longVector, "Long Vector" };
-
-
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-
-namespace UnitTest
+TEST(TableTest, EmptyTable)
 {
-	TEST_CLASS(TableTest) {
-    public:
+	// Arrange
+	std::string emptyTableName{ "Empty table" };
+	Table emptyTable{ emptyTableName };
 
-	    TEST_METHOD(EmptyTable) {
-			// Arrange
-			std::string emptyTableName{ "Empty table" };
-			Table emptyTable{ emptyTableName };
+	// Act
+	size_t actualNoOfColumns = emptyTable.getNoOfColumns();
 
-			// Act
-			size_t actualNoOfColumns = emptyTable.getNoOfColumns();
+	// Assert
+	constexpr size_t expectedNoOfColumns = 0;
+	EXPECT_EQ(expectedNoOfColumns, actualNoOfColumns);
+}
 
-			// Assert
-			constexpr size_t expectedNoOfColumns = 0;
-			Assert::AreEqual(expectedNoOfColumns, actualNoOfColumns);
+TEST(TableTest, AddColumnToEmptyTable)
+{
+	// Arrange
+	std::string emptyTableName{ "Empty table" };
+	Table emptyTable{ emptyTableName };
 
-			//try {
-			//	double valueFromEmptyTable = emptyTable.getCellValue(0, 0);
-			//}
-			//catch (const Table::ColumnIndexOutOfBounds& columnIndexOutOfBound) {
-			//	Assert::AreEqual(emptyTableName, columnIndexOutOfBound.what());
-			//}
-			//catch (std::exception& e) {
-			//	Assert::Fail();
-			//}
-	    }
+	// Act
+	emptyTable.appendColumn(shortColumnOne);
 
-		TEST_METHOD(AddColumnToEmptyTable) {
-			// Arrange
-			std::string emptyTableName{ "Empty table" };
-			Table emptyTable{ emptyTableName };
+	// Assert
+	size_t actualNoOfColumns = emptyTable.getNoOfColumns();
+	constexpr size_t expectedNoOfColumns = 1;
+	EXPECT_EQ(expectedNoOfColumns, actualNoOfColumns);
 
-			// Act
-			emptyTable.appendColumn(shortColumnOne);
+	size_t shortVectorOneSize = shortVectorOne.size();
+	for (size_t index = 0; index < shortVectorOneSize; index++) {
+		double actualValue = emptyTable.getCellValue(index, 0);
+		double expectedValue = shortVectorOne.at(index);
+		EXPECT_EQ(expectedValue, actualValue);
+	}
+}
 
-			// Assert
-			size_t actualNoOfColumns = emptyTable.getNoOfColumns();
-			constexpr size_t expectedNoOfColumns = 1;
-			Assert::AreEqual(expectedNoOfColumns, actualNoOfColumns);
+TEST(TableTest, AddTwoColumnsOfSameLength)
+{
+	// Arrange
+	Table testTable{ "Test Table" };
 
-			size_t shortVectorOneSize = shortVectorOne.size();
-			for (size_t index = 0; index < shortVectorOneSize; index++) {
-				double actualValue = emptyTable.getCellValue(index, 0);
-				double expectedValue = shortVectorOne.at(index);
-				Assert::AreEqual(expectedValue, actualValue);
-			}
+	// Act
+	testTable.appendColumn(shortColumnOne);
+	testTable.appendColumn(shortColumnTwo);
+
+	// Assert
+	size_t actualNoOfColumns = testTable.getNoOfColumns();
+	constexpr size_t expectedNoOfColumns = 2;
+	EXPECT_EQ(expectedNoOfColumns, actualNoOfColumns);
+
+	for (size_t columnIndex = 0; columnIndex < actualNoOfColumns; columnIndex++) {
+		Column currentColumn = testTable.getColumn(columnIndex);
+		size_t currentNoOfRows = currentColumn.getNoOfRows();
+		for (size_t rowIndex = 0; rowIndex < currentNoOfRows; rowIndex++) {
+			double actualValue = currentColumn.getOneRow(rowIndex);
+			double expectedValue = columnIndex == 0 ? shortVectorOne.at(rowIndex) : shortVectorTwo.at(rowIndex);
+			EXPECT_EQ(expectedValue, actualValue);
 		}
+	}
+}
 
-		TEST_METHOD(AddTwoColumnsOfSameLength) {
-			// Arrange
-			Table testTable{ "Test Table" };
+TEST(TableTest, AddColumnLongerThanTableColumns)
+{
+	// Arrange
+	Table testTable{ "Test Table" };
+	testTable.appendColumn(shortColumnOne);
 
-			// Act
-			testTable.appendColumn(shortColumnOne);
-			testTable.appendColumn(shortColumnTwo);
+	// Act
+	testTable.appendColumn(longColumn);
 
-			// Assert
-			size_t actualNoOfColumns = testTable.getNoOfColumns();
-			constexpr size_t expectedNoOfColumns = 2;
-			Assert::AreEqual(expectedNoOfColumns, actualNoOfColumns);
+	// Assert
+	Column shortColumnFromTable = testTable.getColumn(0);
+	std::vector<double> shortColumnRowsFromTable = shortColumnFromTable.getAllRows();
+	std::vector<double> expectedResult{ 0, 1.1, 2.2, 0, 0 };
+	bool isColumnAsExpected = std::equal(
+		expectedResult.begin(), expectedResult.end(),
+		shortColumnRowsFromTable.begin(), shortColumnRowsFromTable.end()
+	);
+	EXPECT_TRUE(isColumnAsExpected);
+}
 
-			for (size_t columnIndex = 0; columnIndex < actualNoOfColumns; columnIndex++) {
-				Column currentColumn = testTable.getColumn(columnIndex);
-				size_t currentNoOfRows = currentColumn.getNoOfRows();
-				for (size_t rowIndex = 0; rowIndex < currentNoOfRows; rowIndex++) {
-					double actualValue = currentColumn.getOneRow(rowIndex);
-					double expectedValue = columnIndex == 0 ? shortVectorOne.at(rowIndex) : shortVectorTwo.at(rowIndex);
-					Assert::AreEqual(expectedValue, actualValue);
-				}
-			}
-		}
+TEST(TableTest, AddColumnShorterThanTableColumns)
+{
+	// Arrange
+	Table testTable{ "Test Table" };
+	testTable.appendColumn(longColumn);
 
-		TEST_METHOD(AddColumnLongerThanTableColumns) {
-			// Arrange
-			Table testTable{ "Test Table" };
-			testTable.appendColumn(shortColumnOne);
+	// Act
+	testTable.appendColumn(shortColumnOne);
 
-			// Act
-			testTable.appendColumn(longColumn);
+	// Assert
+	Column shortColumnFromTable = testTable.getColumn(1);
+	std::vector<double> shortColumnRowsFromTable = shortColumnFromTable.getAllRows();
+	std::vector<double> expectedResult{ 0, 1.1, 2.2, 0, 0 };
+	bool isColumnAsExpected = std::equal(
+		expectedResult.begin(), expectedResult.end(),
+		shortColumnRowsFromTable.begin(), shortColumnRowsFromTable.end()
+	);
+	EXPECT_TRUE(isColumnAsExpected);
+}
 
-			// Assert
-			Column shortColumnFromTable = testTable.getColumn(0);
-			std::vector<double> shortColumnRowsFromTable = shortColumnFromTable.getAllRows();
-			std::vector<double> expectedResult{ 0, 1.1, 2.2, 0, 0 };
-			bool isColumnAsExpected = std::equal(
-				expectedResult.begin(), expectedResult.end(),
-				shortColumnRowsFromTable.begin(), shortColumnRowsFromTable.end()
-			);
-			Assert::IsTrue(isColumnAsExpected);
-		}
+TEST(TableTest, GetNoOfColumns)
+{
+	// Arrange
+	Table testTable{ "Test Table" };
+	testTable.appendColumn(shortColumnOne);
+	testTable.appendColumn(shortColumnTwo);
 
-		TEST_METHOD(AddColumnShorterThanTableColumns) {
-			// Arrange
-			Table testTable{ "Test Table" };
-			testTable.appendColumn(longColumn);
+	// Act
+	size_t actualNoOfColumns = testTable.getNoOfColumns();
 
-			// Act
-			testTable.appendColumn(shortColumnOne);
+	// Assert
+	constexpr size_t expectedNoOfColumns = 2;
+	EXPECT_EQ(expectedNoOfColumns, actualNoOfColumns);
+}
 
-			// Assert
-			Column shortColumnFromTable = testTable.getColumn(1);
-			std::vector<double> shortColumnRowsFromTable = shortColumnFromTable.getAllRows();
-			std::vector<double> expectedResult{ 0, 1.1, 2.2, 0, 0 };
-			bool isColumnAsExpected = std::equal(
-				expectedResult.begin(), expectedResult.end(),
-				shortColumnRowsFromTable.begin(), shortColumnRowsFromTable.end()
-			);
-			Assert::IsTrue(isColumnAsExpected);
-		}
+TEST(TableTest, GetColumnOfSpecifiedIndex)
+{
+	// Arrange
+	Table testTable{ "Test Table" };
+	testTable.appendColumn(shortColumnOne);
+	testTable.appendColumn(shortColumnTwo);
 
-		TEST_METHOD(GetNoOfColumns) {
-			// Arrange
-			Table testTable{ "Test Table" };
-			testTable.appendColumn(shortColumnOne);
-			testTable.appendColumn(shortColumnTwo);
+	// Act
+	Column firstColumnFromTable = testTable.getColumn(0);
+	std::vector<double> actualVectorFromFirstColumn = firstColumnFromTable.getAllRows();
 
-			// Act
-			size_t actualNoOfColumns = testTable.getNoOfColumns();
+	Column secondColumnFromTable = testTable.getColumn(1);
+	std::vector<double> actualVectorFromSecondColumn = secondColumnFromTable.getAllRows();
 
-			// Assert
-			constexpr size_t expectedNoOfColumns = 2;
-			Assert::AreEqual(expectedNoOfColumns, actualNoOfColumns);
-		}
+	// Assert
+	bool isFirstColumnEqual = std::equal(
+		shortVectorOne.begin(), shortVectorOne.end(),
+		actualVectorFromFirstColumn.begin(), actualVectorFromFirstColumn.end()
+	);
+	bool isSecondColumnEqual = std::equal(
+		shortVectorTwo.begin(), shortVectorTwo.end(),
+		actualVectorFromSecondColumn.begin(), actualVectorFromSecondColumn.end()
+	);
 
-		TEST_METHOD(GetColumnOfSpecifiedIndex) {
-			// Arrange
-			Table testTable{ "Test Table" };
-			testTable.appendColumn(shortColumnOne);
-			testTable.appendColumn(shortColumnTwo);
+	EXPECT_TRUE(isFirstColumnEqual);
+	EXPECT_TRUE(isSecondColumnEqual);
+}
 
-			// Act
-			Column firstColumnFromTable = testTable.getColumn(0);
-			std::vector<double> actualVectorFromFirstColumn = firstColumnFromTable.getAllRows();
+TEST(TableTest, GetCellValueFromTable)
+{
+	// Arrange
+	Table testTable{ "Test Table" };
+	testTable.appendColumn(shortColumnOne);
+	testTable.appendColumn(shortColumnTwo);
 
-			Column secondColumnFromTable = testTable.getColumn(1);
-			std::vector<double> actualVectorFromSecondColumn = secondColumnFromTable.getAllRows();
+	constexpr size_t rowIndex = 1;
+	constexpr size_t columnIndex = 0;
 
-			// Assert
-			bool isFirstColumnEqual = std::equal(
-				shortVectorOne.begin(), shortVectorOne.end(),
-				actualVectorFromFirstColumn.begin(), actualVectorFromFirstColumn.end()
-			);
-			bool isSecondColumnEqual = std::equal(
-				shortVectorTwo.begin(), shortVectorTwo.end(),
-				actualVectorFromSecondColumn.begin(), actualVectorFromSecondColumn.end()
-			);
+	// Act
+	double actualValue = testTable.getCellValue(rowIndex, columnIndex);
 
-			Assert::IsTrue(isFirstColumnEqual);
-			Assert::IsTrue(isSecondColumnEqual);
-		}
-
-		TEST_METHOD(GetCellValueFromTable) {
-			// Arrange
-			Table testTable{ "Test Table" };
-			testTable.appendColumn(shortColumnOne);
-			testTable.appendColumn(shortColumnTwo);
-
-			constexpr size_t rowIndex = 1;
-			constexpr size_t columnIndex = 0;
-
-			// Act
-			double actualValue = testTable.getCellValue(rowIndex, columnIndex);
-
-			// Assert
-			double expectedValue = shortColumnOne.getOneRow(rowIndex);
-			Assert::AreEqual(expectedValue, actualValue);
-		}
-
-	};
+	// Assert
+	double expectedValue = shortColumnOne.getOneRow(rowIndex);
+	EXPECT_EQ(expectedValue, actualValue);
 }
 
 

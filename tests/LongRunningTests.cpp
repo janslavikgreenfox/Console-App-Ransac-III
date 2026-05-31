@@ -13,35 +13,21 @@
 
 #include "Common.h"
 #include "Column.h"
-#include "CppUnitTest.h"
-
+#include <gtest/gtest.h>
 #include <iostream>
 
 using Column = ConsoleAppRansacIINamespace::Core::Column;
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace UnitTest
-{
-	//TEST_CLASS(LongRunningTest) {
- //   public:
+// namespace UnitTest
+// {
+// TEST(LongRunningTest, ExtremeLongColumn) {
+//     // Arrange
+//     constexpr size_t hugeVectorSize = 2000000000;
+//     std::vector<double> hugeVector(hugeVectorSize, 1.414);
 
-	//	TEST_METHOD(ExtremeLongColumn) {
-
-	//	    // Arrange
-	//        constexpr size_t hugeVectorSize = 2000000000;
-	//        std::vector<double> hugeVector(hugeVectorSize, 1.414);
-
-	//        // Act
-	//        try {
-	//	        Column column{hugeVector, "Really huge vector"};
-	//			Assert::Fail(L"The expected exception was not thrown");
-	//        }
-	//        // Assert
-	//		catch (Column::BadAlloc& e) {
-	//			Assert::IsTrue(true);
-	//			return;
-	//		}
-	//		Assert::Fail(L"The expected exception was not catched");
-	//	}
-	//};
-}
+//     // Act & Assert
+//     EXPECT_THROW({
+//         Column column{hugeVector, "Really huge vector"};
+//     }, Column::BadAlloc);
+// }
+// }
