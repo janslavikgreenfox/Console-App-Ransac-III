@@ -10,12 +10,6 @@ set(TEST_SOURCES
     TestOfTableExport.cpp
 )
 
-
-
-# set(TEST_SOURCES
-#     minimal.cpp
-# )
-
 add_executable(tests ${TEST_SOURCES})
 
 find_package(GTest CONFIG REQUIRED)
