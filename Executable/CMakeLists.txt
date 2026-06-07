@@ -12,4 +12,4 @@ add_executable(MyExecutable ${EXECUTABLE_SOURCES})
 
 target_include_directories(MyExecutable PRIVATE include)
 
-target_link_libraries(MyExecutable PRIVATE MyLibrary)
+target_link_libraries(MyExecutable PRIVATE RansacLibrary)

@@ -8,6 +8,7 @@
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "C:/Users/jansl/source/vcpkg/scripts/buildsystems/vcpkg.cmake",
         "VCPKG_TARGET_TRIPLET": "x64-windows"
+        ,"GTest_DIR": "C:/Users/jansl/source/vcpkg/installed/x64-windows/share/gtest"
       }
     }
   ]

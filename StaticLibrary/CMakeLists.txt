@@ -25,6 +25,6 @@ set(LIBRARY_HEADERS
     include/TableFacade.h
 )
 
-add_library(MyLibrary STATIC ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
+add_library(RansacLibrary STATIC ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
 
-target_include_directories(MyLibrary PUBLIC include)
+target_include_directories(RansacLibrary PUBLIC include)
