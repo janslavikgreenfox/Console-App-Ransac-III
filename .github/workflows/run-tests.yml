@@ -23,21 +23,22 @@ jobs:
       with:
         arch: x64 # Architecture for your build
 
-    # Step 3: Build the solution
-    - name: Build the solution
+    # Step 3: Install vcpkg and Google Test on the CI runner
+    - name: Bootstrap vcpkg and install GTest
       run: |
-        msbuild Console-App-Ransac-III.sln /p:Configuration=Debug /p:Platform=x64
+        git clone https://github.com/microsoft/vcpkg.git vcpkg
+        .\vcpkg\bootstrap-vcpkg.bat
+        .\vcpkg\vcpkg.exe install gtest:x64-windows
 
-    # Step 4: Run the unit tests
+    # Step 4: Configure and build with CMake using vcpkg
+    - name: Configure and build
+      run: |
+        cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE=%CD%\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows
+        cmake --build build --config Debug
+
+    # Step 5: Run the unit tests
     - name: Run unit tests
       run: |
-        #cd x64\Debug\ # Adjust to the location of the built executable
-        #"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\TestPlatform\vstest.console.exe" 
-        #.\YourTestExecutable.exe
-        #pwd
-        #dir
-        #'C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\TestPlatform\vstest.console.exe' x64/Debug/UnitTest.dll 
-        #UnitTest/x64/Debug/UnitTest.dll
-        $vsTestConsole = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
-        & "$vsTestConsole" x64\Debug\UnitTest.dll
+        cmake --build build --config Debug --target RUN_TESTS
+        ctest --test-dir build -C Debug --output-on-failure
 
