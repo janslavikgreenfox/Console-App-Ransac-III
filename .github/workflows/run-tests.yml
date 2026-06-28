@@ -38,7 +38,7 @@ jobs:
     # Step 4: Configure and build with CMake using vcpkg
     - name: Configure and build (Ninja)
       run: |
-        cmake -S . -B build -G "Ninja" -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows
+        cmake -S . -B build -G "Ninja" -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
         cmake --build build
 
     # Step 5: Run the unit tests (single-config Ninja build)
