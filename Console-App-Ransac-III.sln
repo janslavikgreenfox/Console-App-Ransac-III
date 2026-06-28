@@ -10,7 +10,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Executable", "Executable\Ex
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StaticLibrary", "StaticLibrary\StaticLibrary.vcxproj", "{A459537D-093F-48D4-AC24-B0CB2AED118B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "UnitTest.vcxproj", "{A8FD05F3-8E37-4E63-B4FE-B478D1644137}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\UnitTest.vcxproj", "{A8FD05F3-8E37-4E63-B4FE-B478D1644137}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A459537D-093F-48D4-AC24-B0CB2AED118B} = {A459537D-093F-48D4-AC24-B0CB2AED118B}
 	EndProjectSection
