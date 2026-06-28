@@ -30,6 +30,11 @@ jobs:
         .\vcpkg\bootstrap-vcpkg.bat
         .\vcpkg\vcpkg.exe install gtest:x64-windows
 
+    # Step 4: Ensure Ninja present
+    - name: Ensure Ninja present
+      run: |
+        choco install ninja -y
+
     # Step 4: Configure and build with CMake using vcpkg
     - name: Configure and build (Ninja)
       run: |
